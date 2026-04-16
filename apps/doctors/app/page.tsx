@@ -22,6 +22,9 @@ export default function Home() {
   return (
     <div>
       Doctors
+
+      <button className="btn">Default</button>
+
     </div>
   );
 }
