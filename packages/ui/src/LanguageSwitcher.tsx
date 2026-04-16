@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 export function LanguageSwitcher() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export function LanguageSwitcher() {
     if (segments.length > 1 && locales.some((l) => l.code === segments[1])) {
       segments[1] = lang;
     } else {
-      // If it doesn't have a structured supported lang (e.g. root /), prefix it 
+      // If it doesn't have a structured supported lang (e.g. root /), prefix it
       // But typically middleware redirects to /[lang]/... so it should already have it.
       segments.splice(1, 0, lang);
     }
@@ -51,9 +52,14 @@ export function LanguageSwitcher() {
 
   return (
     <div className="dropdown dropdown-end">
-      <button tabIndex={0} role="button" className="btn m-1 btn-ghost rounded-btn bg-base-100 hover:bg-base-200">
+      <button
+        tabIndex={0}
+        role="button"
+        className="btn rounded-btn hover:bg-base-200"
+      >
         <span className="text-lg">{currentLocaleObj.flag}</span>
         <span className="hidden sm:inline-block">{currentLocaleObj.label}</span>
+        <ChevronDown />
       </button>
       <ul
         tabIndex={0}

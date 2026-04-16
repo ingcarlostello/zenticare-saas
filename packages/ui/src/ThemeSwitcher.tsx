@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-
+import { ChevronDown } from "lucide-react";
+import { Check } from "lucide-react";
+import { Palette } from "lucide-react";
 
 export function ThemeSwitcher({ label = "Theme list" }: { label?: string }) {
   const { theme, setTheme } = useTheme();
@@ -26,21 +28,13 @@ export function ThemeSwitcher({ label = "Theme list" }: { label?: string }) {
   ];
 
   return (
-    <details className="dropdown">
-      <summary className="btn btn-ghost btn-sm gap-1">
-        {label}
-        <svg
-          width="12"
-          height="12"
-          className="h-2 w-2 fill-current opacity-60"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 2048 2048"
-        >
-          <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z" />
-        </svg>
+    <details className="dropdown dropdown-end">
+      <summary className="btn gap-1">
+        <Palette size={16}/>
+        <ChevronDown size={16}/>
       </summary>
 
-      <div className="dropdown-content border-solid bg-base-100 p-3 rounded-box z-[1] w-30 shadow-lg mt-2 border border-base-200">
+      <div className="dropdown-content border-solid bg-base-100 p-3 rounded-box z-[1] w-25 shadow-lg mt-2 border border-base-200">
         <ul className="menu menu-sm max-h-72 overflow-y-auto flex-nowrap p-2 pt-0">
           {themes.map((t) => (
             <li className="my-1" key={t.name}>
@@ -48,24 +42,15 @@ export function ThemeSwitcher({ label = "Theme list" }: { label?: string }) {
                 className={`flex items-center gap-3 ${theme === t.name ? "active" : ""}`}
                 onClick={() => {
                   setTheme(t.name);
-                  const el = (document.activeElement as HTMLElement)?.closest("details");
+                  const el = (document.activeElement as HTMLElement)?.closest(
+                    "details",
+                  );
                   if (el) el.removeAttribute("open");
                 }}
               >
                 <span className="flex-1">{t.label}</span>
                 {theme === t.name && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-success"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <Check className="text-success" size={16} />
                 )}
               </button>
             </li>
