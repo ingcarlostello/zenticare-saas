@@ -3,7 +3,8 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 
-export function ThemeSwitcher() {
+
+export function ThemeSwitcher({ label = "Theme list" }: { label?: string }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
@@ -25,9 +26,9 @@ export function ThemeSwitcher() {
   ];
 
   return (
-    <details className="dropdown dropdown-end">
+    <details className="dropdown">
       <summary className="btn btn-ghost btn-sm gap-1">
-        Theme list
+        {label}
         <svg
           width="12"
           height="12"
@@ -39,7 +40,7 @@ export function ThemeSwitcher() {
         </svg>
       </summary>
 
-      <div className="dropdown-content bg-base-100 p-3 rounded-box z-[1] w-30 shadow-lg mt-2 border border-base-200">
+      <div className="dropdown-content border-solid bg-base-100 p-3 rounded-box z-[1] w-30 shadow-lg mt-2 border border-base-200">
         <ul className="menu menu-sm max-h-72 overflow-y-auto flex-nowrap p-2 pt-0">
           {themes.map((t) => (
             <li className="my-1" key={t.name}>
