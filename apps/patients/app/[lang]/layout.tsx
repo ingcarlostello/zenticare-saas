@@ -37,7 +37,7 @@ export default async function RootLayout({
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           <header className="p-4 flex justify-end gap-2 border-b border-base-200">
             <LanguageSwitcher />
-            <ThemeSwitcher label={dict.page.themeList} />
+            <ThemeSwitcher />
           </header>
           <main className="flex-1">
             {children}

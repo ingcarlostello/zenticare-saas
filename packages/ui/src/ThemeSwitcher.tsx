@@ -2,13 +2,13 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { ChevronDown } from "lucide-react";
-import { Check } from "lucide-react";
-import { Palette } from "lucide-react";
+import { ChevronDown, Check, Palette } from "lucide-react";
+import { useDetailsDropdown } from "./hooks/useDetailsDropdown";
 
-export function ThemeSwitcher({ label = "Theme list" }: { label?: string }) {
+export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
+  const { detailsRef, closeDropdown } = useDetailsDropdown();
 
   React.useEffect(() => {
     setMounted(true);
@@ -29,13 +29,13 @@ export function ThemeSwitcher({ label = "Theme list" }: { label?: string }) {
   ];
 
   return (
-    <details className="dropdown dropdown-end">
+    <details ref={detailsRef} className="dropdown dropdown-end">
       <summary className="btn gap-1">
         <Palette size={16}/>
         <ChevronDown size={16}/>
       </summary>
 
-      <div className="dropdown-content border-solid bg-base-100 p-3 rounded-box z-[1] w-25 shadow-lg mt-2 border border-base-200">
+      <div className="dropdown-content border-solid bg-base-100 p-3 rounded-box z-[1] w-auto shadow-lg mt-2 border border-base-200">
         <ul className="menu menu-sm max-h-72 overflow-y-auto flex-nowrap p-2 pt-0">
           {themes.map((t) => (
             <li className="my-1" key={t.name}>
@@ -43,10 +43,7 @@ export function ThemeSwitcher({ label = "Theme list" }: { label?: string }) {
                 className={`flex items-center gap-3 ${theme === t.name ? "active" : ""}`}
                 onClick={() => {
                   setTheme(t.name);
-                  const el = (document.activeElement as HTMLElement)?.closest(
-                    "details",
-                  );
-                  if (el) el.removeAttribute("open");
+                  closeDropdown();
                 }}
               >
                 <span className="flex-1">{t.label}</span>
