@@ -1,4 +1,4 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse, NextRequest } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
@@ -17,6 +17,9 @@ function getLocale(request: NextRequest): string {
     return defaultLocale;
   }
 }
+
+const isProtectedRoute = createRouteMatcher(['(.*)/dashboard(.*)']);
+const isAuthRoute = createRouteMatcher(['(.*)/login(.*)', '(.*)/register(.*)']);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { pathname } = req.nextUrl;
@@ -41,6 +44,31 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     // e.g. incoming request is /dashboard
     // The new URL is now /en/dashboard
     return NextResponse.redirect(req.nextUrl);
+  }
+  
+  const { userId } = await auth();
+  const activeLocale = pathname.split('/')[1] || getLocale(req);
+
+  // Redirect unknown routes based on auth status
+  const isHomeRoute = locales.some(l => pathname === `/${l}` || pathname === `/${l}/`);
+  const isKnownRoute = isProtectedRoute(req) || isAuthRoute(req) || isHomeRoute;
+
+  if (!isKnownRoute) {
+    if (userId) {
+      return NextResponse.redirect(new URL(`/${activeLocale}/dashboard`, req.url));
+    } else {
+      return NextResponse.redirect(new URL(`/${activeLocale}/login`, req.url));
+    }
+  }
+
+  // Redirect authenticated users away from auth pages
+  if (userId && isAuthRoute(req)) {
+    return NextResponse.redirect(new URL(`/${activeLocale}/dashboard`, req.url));
+  }
+
+  // Protect private routes (Manual redirect to keep URL clean)
+  if (!userId && isProtectedRoute(req)) {
+    return NextResponse.redirect(new URL(`/${activeLocale}/login`, req.url));
   }
   
   return NextResponse.next();
