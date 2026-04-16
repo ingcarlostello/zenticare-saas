@@ -3,7 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx"
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./auth": {
+      "types": "./src/auth.ts",
+      "import": "./src/auth.ts",
+      "default": "./src/auth.ts"
+    },
+    "./*": {
+      "types": "./src/*.tsx",
+      "import": "./src/*.tsx",
+      "default": "./src/*.tsx"
+    }
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

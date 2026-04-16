@@ -25,6 +25,7 @@ export function ThemeSwitcher({ label = "Theme list" }: { label?: string }) {
     { name: "marfil", label: "marfil" },
     { name: "blue1", label: "blue1" },
     { name: "nextnpc", label: "nextnpc" },
+    { name: "healingtides", label: "healingtides" },
   ];
 
   return (
