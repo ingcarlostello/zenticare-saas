@@ -3,5 +3,26 @@
     "title": "Bem-vindo ao Painel dos Médicos da Zenticare",
     "description": "Faça a gestão dos seus pacientes e da sua agenda com eficiência.",
     "themeList": "Lista de temas"
+  },
+  "pricing": {
+    "title": "Preço",
+    "monthly": "Mensal",
+    "planFree": "Grátis",
+    "planPro": "Pro",
+    "priceFree": "0",
+    "pricePro": "39.99",
+    "chooseBtn": "Escolher",
+    "feFreeOffers": "Ofertas de bônus",
+    "feFreeLoyalty": "Plano de fidelidade",
+    "feFreeCoupons": "Cupons especiais",
+    "feFreeLocation": "1 localização grátis",
+    "feFreePresentation": "Apresentação da empresa",
+    "feFreeStats": "Análise básica e estatísticas",
+    "feProBasic": "Grátis +",
+    "feProLocations": "Localizações ilimitadas",
+    "feProBanners": "Banners",
+    "feProSurveys": "Pesquisas",
+    "feProNotifications": "Notificações Push",
+    "feProAdvancedStats": "Análises e estatísticas avançadas"
   }
 }

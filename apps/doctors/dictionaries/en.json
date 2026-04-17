@@ -3,5 +3,26 @@
     "title": "Welcome to Zenticare Doctors Dashboard",
     "description": "Manage your patients and schedule efficiently.",
     "themeList": "Theme list"
+  },
+  "pricing": {
+    "title": "Price",
+    "monthly": "Monthly",
+    "planFree": "Free",
+    "planPro": "Pro",
+    "priceFree": "0",
+    "pricePro": "39.99",
+    "chooseBtn": "Choose",
+    "feFreeOffers": "Bonus offers",
+    "feFreeLoyalty": "Loyalty plan",
+    "feFreeCoupons": "Special coupons",
+    "feFreeLocation": "1 location free",
+    "feFreePresentation": "Company presentation",
+    "feFreeStats": "Basic analysis & stats",
+    "feProBasic": "Basic +",
+    "feProLocations": "Unlimited locations",
+    "feProBanners": "Banners",
+    "feProSurveys": "Surveys",
+    "feProNotifications": "Push notifications",
+    "feProAdvancedStats": "Advanced analytics & stats"
   }
 }

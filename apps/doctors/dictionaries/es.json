@@ -3,5 +3,26 @@
     "title": "Bienvenido al Panel de Doctores de Zenticare",
     "description": "Gestiona tus pacientes y agenda de forma eficiente.",
     "themeList": "Lista de temas"
+  },
+  "pricing": {
+    "title": "Precio",
+    "monthly": "Mensual",
+    "planFree": "Gratis",
+    "planPro": "Pro",
+    "priceFree": "0",
+    "pricePro": "39.99",
+    "chooseBtn": "Seleccionar",
+    "feFreeOffers": "Ofertas de bonificación",
+    "feFreeLoyalty": "Plan de lealtad",
+    "feFreeCoupons": "Cupones especiales",
+    "feFreeLocation": "1 ubicación gratis",
+    "feFreePresentation": "Presentación de la empresa",
+    "feFreeStats": "Análisis básico y estadísticas",
+    "feProBasic": "Gratis +",
+    "feProLocations": "Ubicaciones ilimitadas",
+    "feProBanners": "Banners",
+    "feProSurveys": "Encuestas",
+    "feProNotifications": "Notificaciones Push",
+    "feProAdvancedStats": "Análisis avanzado y estadísticas"
   }
 }

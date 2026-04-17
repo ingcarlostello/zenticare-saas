@@ -20,6 +20,7 @@ function getLocale(request: NextRequest): string {
 
 const isProtectedRoute = createRouteMatcher(['(.*)/dashboard(.*)']);
 const isAuthRoute = createRouteMatcher(['(.*)/login(.*)', '(.*)/register(.*)']);
+const isPricingRoute = createRouteMatcher(['(.*)/pricing(.*)']);
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { pathname } = req.nextUrl;
@@ -51,7 +52,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
 
   // Redirect unknown routes based on auth status
   const isHomeRoute = locales.some(l => pathname === `/${l}` || pathname === `/${l}/`);
-  const isKnownRoute = isProtectedRoute(req) || isAuthRoute(req) || isHomeRoute;
+  const isKnownRoute = isProtectedRoute(req) || isAuthRoute(req) || isPricingRoute(req) || isHomeRoute;
 
   if (!isKnownRoute) {
     if (userId) {
