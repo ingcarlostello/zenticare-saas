@@ -26,6 +26,9 @@ export function ThemeSwitcher() {
     { name: "blue1", label: "blue1" },
     { name: "nextnpc", label: "nextnpc" },
     { name: "healingtides", label: "healingtides" },
+    { name: "rustygrave", label: "rustygrave" },
+    { name: "shinydoctor", label: "shinydoctor" },
+    { name: "zafedoctor", label: "zafedoctor" },
   ];
 
   return (

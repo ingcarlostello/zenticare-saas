@@ -3,5 +3,26 @@
     "title": "Bienvenue sur le tableau de bord des médecins de Zenticare",
     "description": "Gérez vos patients et planifiez efficacement.",
     "themeList": "Liste des thèmes"
+  },
+  "pricing": {
+    "title": "Prix",
+    "monthly": "Mensuel",
+    "planFree": "Gratuit",
+    "planPro": "Pro",
+    "priceFree": "0",
+    "pricePro": "39.99",
+    "chooseBtn": "Choisir",
+    "feFreeOffers": "Offres bonus",
+    "feFreeLoyalty": "Plan de fidélité",
+    "feFreeCoupons": "Coupons spéciaux",
+    "feFreeLocation": "1 emplacement gratuit",
+    "feFreePresentation": "Présentation de l'entreprise",
+    "feFreeStats": "Analyse de base et statistiques",
+    "feProBasic": "Gratuit +",
+    "feProLocations": "Emplacements illimités",
+    "feProBanners": "Bannières",
+    "feProSurveys": "Sondages",
+    "feProNotifications": "Notifications Push",
+    "feProAdvancedStats": "Analyses et statistiques avançées"
   }
 }
