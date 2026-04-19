@@ -24,5 +24,11 @@
     "feProSurveys": "Sondages",
     "feProNotifications": "Notifications Push",
     "feProAdvancedStats": "Analyses et statistiques avançées"
+  },
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "chat": "Discuter"
   }
 }
