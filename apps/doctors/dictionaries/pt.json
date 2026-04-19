@@ -24,5 +24,11 @@
     "feProSurveys": "Pesquisas",
     "feProNotifications": "Notificações Push",
     "feProAdvancedStats": "Análises e estatísticas avançadas"
+  },
+  "sidebar": {
+    "dashboard": "Painel de controle",
+    "profile": "Perfil",
+    "settings": "Configurações",
+    "chat": "Bate-papo"
   }
 }
