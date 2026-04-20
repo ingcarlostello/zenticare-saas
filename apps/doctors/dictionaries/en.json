@@ -5,6 +5,8 @@
     "themeList": "Theme list"
   },
   "pricing": {
+    "currentPlan": "Current plan",
+    "included": "Included",
     "title": "Price",
     "monthly": "Monthly",
     "planFree": "Free",

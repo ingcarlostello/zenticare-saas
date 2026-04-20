@@ -2,6 +2,9 @@ import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { Webhook } from "svix";
+import { Environment, Paddle } from "@paddle/paddle-node-sdk";
+import { CLERK_API_BASE } from "./constants";
+
 
 const http = httpRouter();
 
@@ -74,6 +77,69 @@ http.route({
     }
 
     return new Response("Webhook processed successfully", { status: 200 });
+  }),
+});
+
+http.route({
+  path: "/api/webhooks/paddle",
+  method: "POST",
+  handler: httpAction(async (ctx, req) => {
+    const signature = req.headers.get("paddle-signature");
+    if (!signature) {
+      return new Response("Missing paddle-signature header", { status: 400 });
+    }
+
+    const webhookSecret = process.env.PADDLE_WEBHOOK_SECRET;
+    const apiKey = process.env.PADDLE_API_KEY;
+
+    if (!webhookSecret || !apiKey) {
+      console.error("Missing paddle secrets");
+      return new Response("Webhook secret not found", { status: 500 });
+    }
+
+    // El SDK de Paddle puede ser usado para desempaquetar y validar este webhook
+    const paddle = new Paddle(apiKey, {
+      environment: Environment.sandbox,
+    });
+
+    try {
+      const payload = await req.text();
+      const event = await paddle.webhooks.unmarshal(payload, webhookSecret, signature);
+
+      // Enviamos el evento deserializado a la mutación interna que creamos.
+      const result = await ctx.runMutation(internal.paddle.handleWebhook, {
+        eventType: event.eventType,
+        data: JSON.stringify(event.data),
+        occurredAt: event.occurredAt ? new Date(event.occurredAt).toISOString() : undefined,
+      });
+      
+      // Sincronizar planKey con Clerk public metadata usando su REST API
+      if (result && result.clerkId && result.planKey) {
+        const clerkSecret = process.env.CLERK_SECRET_KEY;
+        if (clerkSecret) {
+          try {
+            await fetch(`${CLERK_API_BASE}/users/${result.clerkId}/metadata`, {
+              method: "PATCH",
+              headers: {
+                "Authorization": `Bearer ${clerkSecret}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ public_metadata: { planKey: result.planKey } })
+            });
+            console.log(`Successfully synced planKey ${result.planKey} to Clerk user ${result.clerkId}`);
+          } catch (syncError) {
+            console.error("Failed to sync planKey to Clerk", syncError);
+          }
+        } else {
+          console.warn("CLERK_SECRET_KEY no está configurado, saltando sincronización con Clerk metadata.");
+        }
+      }
+
+      return new Response("Webhook processed successfully", { status: 200 });
+    } catch (err) {
+      console.error("Paddle Webhook Verification Failed", err);
+      return new Response("Webhook Verification Failed", { status: 400 });
+    }
   }),
 });
 
