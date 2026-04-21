@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { PADDLE_ROUTES } from "@repo/database/convex/paddle-routes";
+import { PADDLE_ROUTES } from "@repo/database/convex/paddle_routes";
 
 export async function POST() {
   const { userId } = await auth();

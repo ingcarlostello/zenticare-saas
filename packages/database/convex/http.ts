@@ -4,7 +4,7 @@ import { internal } from "./_generated/api";
 import { Webhook } from "svix";
 import { Environment, Paddle } from "@paddle/paddle-node-sdk";
 import { CLERK_API_BASE } from "./constants";
-import { PADDLE_ROUTES } from "./paddle-routes";
+import { PADDLE_ROUTES } from "./paddle_routes";
 
 
 const http = httpRouter();
