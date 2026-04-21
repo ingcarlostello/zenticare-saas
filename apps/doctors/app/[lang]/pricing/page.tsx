@@ -23,6 +23,7 @@ export default async function PricingPage({
   return (
     <PricingUI
       dict={dict}
+      lang={resolvedParams.lang}
       userId={userId}
       userEmail={userEmail}
       userPlanWeight={userPlanWeight}

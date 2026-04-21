@@ -31,6 +31,11 @@
     "dashboard": "Dashboard",
     "profile": "Profile",
     "settings": "Settings",
-    "chat": "Chat"
+    "chat": "Chat",
+    "planFreeLabel": "Free plan",
+    "planUpgrade": "(upgrade)",
+    "planProLabel": "Pro plan",
+    "planTooltipFree": "Free plan — upgrade",
+    "planTooltipPro": "Pro plan"
   }
 }
