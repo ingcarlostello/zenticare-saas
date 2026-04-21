@@ -1,4 +1,5 @@
-import { internalMutation } from "./_generated/server";
+import { internalMutation, action } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v } from "convex/values";
 
 export const handleWebhook = internalMutation({
@@ -9,10 +10,7 @@ export const handleWebhook = internalMutation({
   },
   handler: async (ctx, args) => {
     const data = JSON.parse(args.data);
-    
-    // Most paddle subscription events contain customer_id and subscription_id
-    // They are usually structured inside data object depending on eventType
-    
+
     console.log("Handling paddle event", args.eventType, "occurredAt:", args.occurredAt);
 
     if (args.eventType.startsWith("customer.")) {
@@ -24,13 +22,10 @@ export const handleWebhook = internalMutation({
 
         if (!customerId) return null;
 
-        // Find the user by paddleCustomerId
-        // Or if paddleCustomerId isn't set yet, but customData exists:
-        // By default we should ensure user maps their clerkId via customData in paddle
         let user;
-        
+
         const customData = data.customData || data.custom_data;
-        
+
         if (customData && customData.clerkId) {
              user = await ctx.db
               .query("users")
@@ -53,7 +48,7 @@ export const handleWebhook = internalMutation({
 
             let planKey = "free";
             if (status === "active" || status === "trialing" || status === "past_due") {
-                planKey = "pro"; // A mapping table can be used here in the future to map price.id to 'pro', 'max', etc.
+                planKey = "pro";
             }
 
             const firstItem = data?.items?.[0];
@@ -74,32 +69,77 @@ export const handleWebhook = internalMutation({
                 subscriptionOccurredAt: subscriptionOccurredAt || new Date().toISOString()
             });
             console.log(`Updated user ${user._id} subscription status to ${status} and plan to ${planKey}`);
-            
+
             return { clerkId: user.clerkId, planKey };
         } else {
             console.error(`Could not find user to link subscription for customer ${customerId}. Ensure customData.clerkId was passed during checkout.`);
             return null;
         }
     } else if (args.eventType === "transaction.completed") {
-        // You might use this initially if subscription.created doesn't have custom data
         const customerId = data.customerId || data.customer_id;
-        const subscriptionId = data.subscriptionId || data.subscription_id; 
+        const subscriptionId = data.subscriptionId || data.subscription_id;
         const customData = data.customData || data.custom_data;
-        
+
         if (customData && customData.clerkId) {
              const user = await ctx.db
               .query("users")
               .withIndex("by_clerkId", (q) => q.eq("clerkId", customData.clerkId))
               .unique();
-              
+
               if (user && customerId) {
                   await ctx.db.patch(user._id, {
                       paddleCustomerId: customerId,
                       ...(subscriptionId ? { paddleSubscriptionId: subscriptionId } : {}),
-                      // if just one-time, update a flag here
                   });
               }
         }
     }
+  },
+});
+
+export const createCustomerPortalSession = action({
+  args: {
+    clerkId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+      clerkId: args.clerkId,
+    });
+
+    if (!user || !user.paddleCustomerId) {
+      throw new Error("User not found or no paddle customer ID associated.");
+    }
+
+    const PADDLE_API_KEY = process.env.PADDLE_API_KEY;
+    const PADDLE_ENVIRONMENT = process.env.NEXT_PUBLIC_PADDLE_ENVIRONMENT || "sandbox";
+
+    if (!PADDLE_API_KEY) {
+      throw new Error("PADDLE_API_KEY is not defined");
+    }
+
+    const apiUrl = PADDLE_ENVIRONMENT === "production"
+      ? "https://api.paddle.com"
+      : "https://sandbox-api.paddle.com";
+
+    const response = await fetch(`${apiUrl}/customers/${user.paddleCustomerId}/portal-sessions`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${PADDLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error("Failed to create portal session:", response.status, text);
+      throw new Error("Failed to create portal session on Paddle");
+    }
+
+    const json = await response.json();
+    if (json?.data?.urls?.general?.overview) {
+      return json.data.urls.general.overview as string;
+    }
+
+    throw new Error("No URL returned from Paddle");
   },
 });

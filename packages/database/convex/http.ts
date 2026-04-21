@@ -4,6 +4,7 @@ import { internal } from "./_generated/api";
 import { Webhook } from "svix";
 import { Environment, Paddle } from "@paddle/paddle-node-sdk";
 import { CLERK_API_BASE } from "./constants";
+import { PADDLE_ROUTES } from "./paddle-routes";
 
 
 const http = httpRouter();
@@ -141,6 +142,85 @@ http.route({
       return new Response("Webhook Verification Failed", { status: 400 });
     }
   }),
+});
+
+http.route({
+  path: PADDLE_ROUTES.PORTAL_SESSION,
+  method: "OPTIONS",
+  handler: httpAction(async (ctx, req) => {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": req.headers.get("Origin") || "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "86400",
+      },
+    });
+  }),
+});
+
+http.route({
+  path: PADDLE_ROUTES.PORTAL_SESSION,
+  method: "POST",
+  handler: httpAction(async (ctx, req) => {
+    const corsHeaders = {
+      "Access-Control-Allow-Origin": req.headers.get("Origin") || "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    };
+
+    try {
+      const { clerkId } = await req.json();
+      if (!clerkId) {
+        return new Response("Missing clerkId", { status: 400, headers: corsHeaders });
+      }
+
+      const PADDLE_API_KEY = process.env.PADDLE_API_KEY;
+      if (!PADDLE_API_KEY) {
+        return new Response("Missing PADDLE_API_KEY", { status: 500, headers: corsHeaders });
+      }
+
+      // Fetch user to get paddleCustomerId
+      const user = await ctx.runQuery(internal.users.getUserByClerkId, { clerkId });
+      if (!user || !user.paddleCustomerId) {
+        return new Response("User or paddleCustomerId not found", { status: 404, headers: corsHeaders });
+      }
+
+      const PADDLE_ENVIRONMENT = process.env.NEXT_PUBLIC_PADDLE_ENVIRONMENT || "sandbox";
+      const apiUrl = PADDLE_ENVIRONMENT === "production" 
+        ? "https://api.paddle.com" 
+        : "https://sandbox-api.paddle.com";
+
+      const response = await fetch(`${apiUrl}/customers/${user.paddleCustomerId}/portal-sessions`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${PADDLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        console.error("Failed to target paddle API", text);
+        return new Response("Failed to create portal session on Paddle", { status: 500, headers: corsHeaders });
+      }
+
+      const json = await response.json();
+      if (json?.data?.urls?.general?.overview) {
+        return new Response(JSON.stringify({ url: json.data.urls.general.overview }), {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" }
+        });
+      }
+
+      return new Response("No URL returned", { status: 500, headers: corsHeaders });
+
+    } catch (err) {
+      console.error("Error creating portal session", err);
+      return new Response("Internal error", { status: 500, headers: corsHeaders });
+    }
+  })
 });
 
 export default http;

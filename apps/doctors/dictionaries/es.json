@@ -36,6 +36,7 @@
     "planUpgrade": "(actualizar)",
     "planProLabel": "Plan Pro",
     "planTooltipFree": "Plan gratuito — actualizar",
-    "planTooltipPro": "Plan Pro"
+    "planTooltipPro": "Plan Pro",
+    "billing": "Facturación"
   }
 }
