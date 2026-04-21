@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { Locale } from "../../i18n/config";
 import { getDictionary } from "../../i18n/get-dictionary";
+import { DrawerControl } from "../../../components/DrawerControl";
 import { Sidebar } from "../../../components/Sidebar";
 import { PLANS } from "../../../constants/pricing.const";
 import { getPlanWeight } from "../../../lib/plans";
@@ -21,7 +22,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="drawer lg:drawer-open h-full">
-      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+      <DrawerControl />
       <div className="drawer-content flex flex-col h-full overflow-y-auto">
         {children}
       </div>

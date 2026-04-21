@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BillingButton } from "./BillingButton";
 import { Locale } from "../app/i18n/config";
 import {
   House,
@@ -87,6 +88,8 @@ export function Sidebar({ dict, lang, showAsPro }: SidebarProps) {
               </span>
             </Link>
           </li>
+
+          {showAsPro && <BillingButton label={dict.sidebar.billing || "Billing"} />}
 
           <li className="mt-auto border-t border-base-200 pt-2">
             {showAsPro ? (
