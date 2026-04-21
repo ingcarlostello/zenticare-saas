@@ -31,6 +31,11 @@
     "dashboard": "Tableau de bord",
     "profile": "Profil",
     "settings": "Paramètres",
-    "chat": "Discuter"
+    "chat": "Discuter",
+    "planFreeLabel": "Plan gratuit",
+    "planUpgrade": "(mettre à niveau)",
+    "planProLabel": "Plan Pro",
+    "planTooltipFree": "Plan gratuit — mise à niveau",
+    "planTooltipPro": "Plan Pro"
   }
 }

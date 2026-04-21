@@ -1,9 +1,11 @@
 import { CheckoutButton } from "../../../components/CheckoutButton";
+import Link from "next/link";
 import { PricingCard } from "../../../components/PricingCard";
 
 
 interface PricingUIProps {
   dict: any;
+  lang: string;
   userId?: string;
   userEmail?: string;
   userPlanWeight: number;
@@ -12,6 +14,7 @@ interface PricingUIProps {
 
 export function PricingUI({
   dict,
+  lang,
   userId,
   userEmail,
   userPlanWeight,
@@ -54,11 +57,13 @@ export function PricingUI({
             price={dict.pricing.priceFree}
             features={freeFeatures}
             actionButton={
-              !userId && (
-                <button className="btn btn-ghost bg-base-200/50 hover:bg-base-200 w-full rounded-xl text-base-content/80 font-semibold border-0">
-                  {dict.pricing.chooseBtn}
-                </button>
-              )
+              !userId ? (
+                <Link href="/register">
+                  <button className="btn btn-ghost bg-base-200/50 hover:bg-base-200 w-full rounded-xl text-base-content/80 font-semibold border-0">
+                    {dict.pricing.chooseBtn}
+                  </button>
+                </Link>
+              ) : null
             }
           />
 
@@ -69,26 +74,34 @@ export function PricingUI({
             price={dict.pricing.pricePro}
             features={proFeatures}
             actionButton={
-              <>
-                {userPlanWeight < proPlanWeight && (
-                  <CheckoutButton
-                    priceId="pri_01kpkft1t0m239f9184pdm4wfw"
-                    text={dict.pricing.chooseBtn}
-                    email={userEmail}
-                    clerkId={userId}
-                    className="btn bg-white hover:bg-base-200 text-blue-700 w-full rounded-xl font-bold border-0 shadow-md"
-                  />
-                )}
-                {userPlanWeight >= proPlanWeight && (
-                  <button
-                    disabled
-                    className="btn bg-white/20 text-white w-full rounded-xl font-bold border-0 shadow-sm cursor-not-allowed"
-                  >
-                    {userPlanWeight === proPlanWeight ? dict.pricing.currentPlan : dict.pricing.included}
-                  </button>
-                )}
-              </>
-            }
+                <>
+                  {userId ? (
+                    userPlanWeight < proPlanWeight ? (
+                      <CheckoutButton
+                        priceId="pri_01kpkft1t0m239f9184pdm4wfw"
+                        text={dict.pricing.chooseBtn}
+                        email={userEmail}
+                        clerkId={userId}
+                        lang={lang}
+                        className="btn bg-white hover:bg-base-200 text-blue-700 w-full rounded-xl font-bold border-0 shadow-md"
+                      />
+                    ) : (
+                      <button
+                        disabled
+                        className="btn bg-white/20 text-white w-full rounded-xl font-bold border-0 shadow-sm cursor-not-allowed"
+                      >
+                        {userPlanWeight === proPlanWeight ? dict.pricing.currentPlan : dict.pricing.included}
+                      </button>
+                    )
+                  ) : (
+                    <Link href="/register">
+                      <button className="btn bg-white hover:bg-base-200 text-blue-700 w-full rounded-xl font-bold border-0 shadow-md">
+                        {dict.pricing.chooseBtn}
+                      </button>
+                    </Link>
+                  )}
+                </>
+              }
           />
         </div>
       </div>

@@ -31,6 +31,11 @@
     "dashboard": "Panel de control",
     "profile": "Perfil",
     "settings": "Ajustes",
-    "chat": "Chat"
+    "chat": "Chat",
+    "planFreeLabel": "Plan gratuito",
+    "planUpgrade": "(actualizar)",
+    "planProLabel": "Plan Pro",
+    "planTooltipFree": "Plan gratuito — actualizar",
+    "planTooltipPro": "Plan Pro"
   }
 }

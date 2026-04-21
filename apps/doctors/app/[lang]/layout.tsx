@@ -30,7 +30,7 @@ export default async function LangLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col bg-base-100 text-base-content`}
+        className={`${geistSans.variable} ${geistMono.variable} h-screen overflow-hidden flex flex-col bg-base-100 text-base-content`}
       >
         <ThemeProvider
           attribute="data-theme"
@@ -61,7 +61,7 @@ export default async function LangLayout({
               </Show>
             </div>
           </header>
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 min-h-0 overflow-hidden">{children}</main>
         </ThemeProvider>
       </body>
     </html>

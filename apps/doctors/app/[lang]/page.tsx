@@ -34,6 +34,8 @@ export default async function Home({
       <div className="mt-4">
         <button className="btn">Default</button>
       </div>
+      
+      <h1 className="text-2xl font-bold"><a href="http://localhost:3000/es/login">login</a></h1>
       <div className="stats shadow">
         <div className="stat">
           <div className="stat-figure text-primary">
