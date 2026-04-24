@@ -24,4 +24,17 @@ export default defineSchema({
     subscriptionOccurredAt: v.optional(v.string()),
   }).index("by_clerkId", ["clerkId"])
     .index("by_paddleCustomerId", ["paddleCustomerId"]),
+
+  patients: defineTable({
+    fullName: v.string(),
+    age: v.optional(v.number()),
+    email: v.string(),
+    phone: v.string(),
+    address: v.optional(v.string()),
+    lastAppointmentDate: v.optional(v.string()),
+    doctorClerkId: v.string(),
+    appointmentDescription: v.optional(v.string()),
+  })
+    .index("by_doctorClerkId", ["doctorClerkId"])
+    .index("by_email_and_doctorClerkId", ["email", "doctorClerkId"]),
 });

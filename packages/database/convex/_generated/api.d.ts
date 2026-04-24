@@ -12,6 +12,7 @@ import type * as constants from "../constants.js";
 import type * as http from "../http.js";
 import type * as paddle from "../paddle.js";
 import type * as paddle_routes from "../paddle_routes.js";
+import type * as patients from "../patients.js";
 import type * as users from "../users.js";
 
 import type {
@@ -25,6 +26,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   paddle: typeof paddle;
   paddle_routes: typeof paddle_routes;
+  patients: typeof patients;
   users: typeof users;
 }>;
 
