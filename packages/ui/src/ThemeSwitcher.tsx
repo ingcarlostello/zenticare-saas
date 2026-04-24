@@ -21,14 +21,17 @@ export function ThemeSwitcher() {
   const themes = [
     { name: "light", label: "light" },
     { name: "dark", label: "dark" },
-    { name: "kree", label: "kree" },
-    { name: "marfil", label: "marfil" },
-    { name: "blue1", label: "blue1" },
+    { name: "jumpingstudio", label: "jumpingstudio" },
+    { name: "paperstar", label: "paperstar" },
+    { name: "electroview", label: "electroview" },
     { name: "nextnpc", label: "nextnpc" },
-    { name: "healingtides", label: "healingtides" },
-    { name: "rustygrave", label: "rustygrave" },
-    { name: "shinydoctor", label: "shinydoctor" },
-    { name: "zafedoctor", label: "zafedoctor" },
+    { name: "cupcake", label: "cupcake" },
+    { name: "emerald", label: "emerald" },
+    { name: "corporate", label: "corporate" },
+    { name: "pastel", label: "pastel" },
+    { name: "fantasy", label: "fantasy" },
+    { name: "lemonade", label: "lemonade" },
+    { name: "winter", label: "winter" },
   ];
 
   return (
