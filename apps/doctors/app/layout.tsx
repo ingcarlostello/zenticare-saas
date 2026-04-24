@@ -1,4 +1,5 @@
 import { ClerkProviderWithLocale } from "./components/ClerkProviderWithLocale";
+import { ConvexClientProvider } from "./components/ConvexClientProvider";
 
 export default function RootLayout({
   children,
@@ -7,7 +8,9 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProviderWithLocale>
-      {children}
+      <ConvexClientProvider>
+        {children}
+      </ConvexClientProvider>
     </ClerkProviderWithLocale>
   );
 }

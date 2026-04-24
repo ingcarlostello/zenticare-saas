@@ -4,6 +4,7 @@ import { Locale } from "../app/i18n/config";
 import {
   House,
   User,
+  Users,
   MessageSquare,
   SlidersHorizontal,
   PanelRightOpen,
@@ -59,6 +60,19 @@ export function Sidebar({ dict, lang, showAsPro }: SidebarProps) {
               <User />
               <span className="is-drawer-close:hidden ml-2">
                 {dict.sidebar.profile}
+              </span>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              href={`/${lang}/dashboard/patients`}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip={dict.sidebar.patients}
+            >
+              <Users />
+              <span className="is-drawer-close:hidden ml-2">
+                {dict.sidebar.patients}
               </span>
             </Link>
           </li>
