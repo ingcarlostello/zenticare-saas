@@ -37,4 +37,18 @@ export default defineSchema({
   })
     .index("by_doctorClerkId", ["doctorClerkId"])
     .index("by_email_and_doctorClerkId", ["email", "doctorClerkId"]),
+
+  appointments: defineTable({
+    title: v.string(),
+    description: v.optional(v.string()),
+    start: v.number(),
+    end: v.number(),
+    patientId: v.id("patients"),
+    doctorClerkId: v.string(),
+    status: v.string(),
+    color: v.optional(v.string()),
+  })
+    .index("by_doctorClerkId", ["doctorClerkId"])
+    .index("by_patientId", ["patientId"])
+    .index("by_doctor_and_time", ["doctorClerkId", "start"]),
 });

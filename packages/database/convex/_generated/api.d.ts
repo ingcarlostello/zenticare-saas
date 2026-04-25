@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as appointments from "../appointments.js";
 import type * as constants from "../constants.js";
 import type * as http from "../http.js";
 import type * as paddle from "../paddle.js";
@@ -22,6 +23,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  appointments: typeof appointments;
   constants: typeof constants;
   http: typeof http;
   paddle: typeof paddle;
