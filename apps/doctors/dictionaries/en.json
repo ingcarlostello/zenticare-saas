@@ -100,5 +100,25 @@
     "requiredField": "Required field",
     "edit": "Edit",
     "delete": "Delete"
+  },
+  "googleCalendar": {
+    "connecting": "Connecting your Google Calendar...",
+    "connectSuccess": "Google Calendar connected successfully!",
+    "connectError": "Failed to connect Google Calendar. Please try again.",
+    "genericError": "An error occurred while connecting the calendar.",
+    "disconnected": "Google Calendar disconnected successfully",
+    "disconnectError": "Failed to disconnect calendar",
+    "notConfigured": "Google integration is not configured properly",
+    "initError": "Failed to initialize connection",
+    "syncing": "Syncing Google Calendar...",
+    "syncSuccess": "Synced {count} events!",
+    "syncError": "Failed to sync calendar",
+    "connectTitle": "Connect your Google Calendar",
+    "connectDescription": "Sync your appointments and manage your schedule directly from this dashboard.",
+    "connectBtn": "Connect Google Calendar",
+    "syncBtnTitle": "Sync Calendar",
+    "openBtn": "Open in Google Calendar",
+    "openBtnMobile": "Open",
+    "disconnectBtn": "Disconnect"
   }
 }

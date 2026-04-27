@@ -64,7 +64,7 @@ export function Sidebar({ dict, lang, showAsPro }: SidebarProps) {
             </Link>
           </li>
 
-          <li>
+          {/* <li>
             <Link
               href={`/${lang}/dashboard/profile`}
               className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -75,7 +75,7 @@ export function Sidebar({ dict, lang, showAsPro }: SidebarProps) {
                 {dict.sidebar.profile}
               </span>
             </Link>
-          </li>
+          </li> */}
 
           <li>
             <Link

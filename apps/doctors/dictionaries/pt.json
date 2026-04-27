@@ -100,5 +100,25 @@
     "requiredField": "Campo obrigatório",
     "edit": "Editar",
     "delete": "Excluir"
+  },
+  "googleCalendar": {
+    "connecting": "Conectando seu Google Calendar...",
+    "connectSuccess": "Google Calendar conectado com sucesso!",
+    "connectError": "Falha ao conectar o Google Calendar. Por favor, tente novamente.",
+    "genericError": "Ocorreu un erro ao conectar o calendário.",
+    "disconnected": "Google Calendar desconectado com sucesso",
+    "disconnectError": "Falha ao desconectar o calendário",
+    "notConfigured": "A integração do Google não está configurada correctamente",
+    "initError": "Falha ao inicializar a conexão",
+    "syncing": "Sincronizando Google Calendar...",
+    "syncSuccess": "Sincronizados {count} eventos!",
+    "syncError": "Falha ao sincronizar o calendário",
+    "connectTitle": "Conecte seu Google Calendar",
+    "connectDescription": "Sincronize seus compromissos e gerencie sua agenda diretamente deste painel.",
+    "connectBtn": "Conectar Google Calendar",
+    "syncBtnTitle": "Sincronizar calendário",
+    "openBtn": "Abrir no Google Calendar",
+    "openBtnMobile": "Abrir",
+    "disconnectBtn": "Desconectar"
   }
 }

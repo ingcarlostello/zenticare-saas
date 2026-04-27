@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery, useMutation } from "convex/react";
+import { useQuery, useMutation, useAction } from "convex/react";
 import { api } from "@repo/database/convex/_generated/api";
 import { useState, useEffect, useRef } from "react";
 import { Id } from "@repo/database/convex/_generated/dataModel";
@@ -26,6 +26,10 @@ export function useAppointmentModal({
   const createAppointment = useMutation(api.appointments.create);
   const updateAppointment = useMutation(api.appointments.update);
   const removeAppointment = useMutation(api.appointments.remove);
+  
+  const createGoogleEvent = useAction(api.googleCalendarActions.createEvent);
+  const updateGoogleEvent = useAction(api.googleCalendarActions.updateEvent);
+  const deleteGoogleEvent = useAction(api.googleCalendarActions.deleteEvent);
   
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -56,9 +60,18 @@ export function useAppointmentModal({
           title,
           patientId: patientId as Id<"patients">,
         });
+
+        if (selectedEvent.googleEventId) {
+          await updateGoogleEvent({
+            googleEventId: selectedEvent.googleEventId,
+            title,
+            start: selectedEvent.start.getTime(),
+            end: selectedEvent.end.getTime(),
+          }).catch(console.error);
+        }
       } else if (selectedSlot) {
         // Create new
-        await createAppointment({
+        const newAppointmentId = await createAppointment({
           title,
           patientId: patientId as Id<"patients">,
           start: selectedSlot.start.getTime(),
@@ -66,6 +79,15 @@ export function useAppointmentModal({
           status: "scheduled",
           color: "primary",
         });
+
+        if (newAppointmentId) {
+          await createGoogleEvent({
+            appointmentId: newAppointmentId,
+            title,
+            start: selectedSlot.start.getTime(),
+            end: selectedSlot.end.getTime(),
+          }).catch(console.error);
+        }
       }
       onClose();
     } catch (error) {
@@ -80,6 +102,13 @@ export function useAppointmentModal({
       await removeAppointment({
         appointmentId: selectedEvent._id,
       });
+
+      if (selectedEvent.googleEventId) {
+        await deleteGoogleEvent({
+          googleEventId: selectedEvent.googleEventId
+        }).catch(console.error);
+      }
+
       onClose();
     } catch (error) {
       console.error("Failed to delete appointment", error);
