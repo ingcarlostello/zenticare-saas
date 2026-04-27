@@ -43,12 +43,22 @@ export default defineSchema({
     description: v.optional(v.string()),
     start: v.number(),
     end: v.number(),
-    patientId: v.id("patients"),
+    patientId: v.optional(v.id("patients")),
     doctorClerkId: v.string(),
     status: v.string(),
     color: v.optional(v.string()),
+    googleEventId: v.optional(v.string()),
+    isAllDay: v.optional(v.boolean()),
   })
     .index("by_doctorClerkId", ["doctorClerkId"])
     .index("by_patientId", ["patientId"])
-    .index("by_doctor_and_time", ["doctorClerkId", "start"]),
+    .index("by_doctor_and_time", ["doctorClerkId", "start"])
+    .index("by_google_event_id", ["googleEventId"]),
+
+  google_calendar_tokens: defineTable({
+    doctorId: v.string(), // Clerk userId
+    encryptedAccessToken: v.string(),
+    encryptedRefreshToken: v.string(),
+    tokenExpiry: v.number(), // timestamp ms
+  }).index("by_doctor", ["doctorId"]),
 });

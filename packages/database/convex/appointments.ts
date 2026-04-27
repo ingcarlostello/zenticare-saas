@@ -69,10 +69,12 @@ export const create = mutation({
       throw new Error("Patient not found or unauthorized");
     }
 
-    return await ctx.db.insert("appointments", {
+    const appointmentId = await ctx.db.insert("appointments", {
       ...args,
       doctorClerkId,
     });
+    
+    return appointmentId;
   },
 });
 
@@ -86,6 +88,7 @@ export const update = mutation({
     patientId: v.optional(v.id("patients")),
     status: v.optional(v.string()),
     color: v.optional(v.string()),
+    googleEventId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();

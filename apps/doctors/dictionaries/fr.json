@@ -100,5 +100,25 @@
     "requiredField": "Champ obligatoire",
     "edit": "Modifier",
     "delete": "Supprimer"
+  },
+  "googleCalendar": {
+    "connecting": "Connexion à votre Google Calendar...",
+    "connectSuccess": "Google Calendar connecté avec succès !",
+    "connectError": "Échec de la connexion à Google Calendar. Veuillez réessayer.",
+    "genericError": "Une erreur est survenue lors de la connexion du calendrier.",
+    "disconnected": "Google Calendar déconnecté avec succès",
+    "disconnectError": "Échec de la déconnexion du calendrier",
+    "notConfigured": "L'intégration Google n'est pas configurée correctement",
+    "initError": "Échec de l'initialisation de la connexion",
+    "syncing": "Synchronisation de Google Calendar...",
+    "syncSuccess": "{count} événements synchronisés !",
+    "syncError": "Échec de la synchronisation du calendrier",
+    "connectTitle": "Connectez votre Google Calendar",
+    "connectDescription": "Synchronisez vos rendez-vous et gérez votre emploi du temps directement depuis ce tableau de bord.",
+    "connectBtn": "Connecter Google Calendar",
+    "syncBtnTitle": "Synchroniser le calendrier",
+    "openBtn": "Ouvrir dans Google Calendar",
+    "openBtnMobile": "Ouvrir",
+    "disconnectBtn": "Déconnecter"
   }
 }
