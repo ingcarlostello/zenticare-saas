@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as appointmentReminders from "../appointmentReminders.js";
 import type * as appointments from "../appointments.js";
 import type * as constants from "../constants.js";
 import type * as googleCalendarActions from "../googleCalendarActions.js";
@@ -30,6 +31,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  appointmentReminders: typeof appointmentReminders;
   appointments: typeof appointments;
   constants: typeof constants;
   googleCalendarActions: typeof googleCalendarActions;

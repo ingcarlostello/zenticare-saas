@@ -1,4 +1,5 @@
 import { query, mutation } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v } from "convex/values";
 
 export const listByDoctor = query({
@@ -73,7 +74,21 @@ export const create = mutation({
       ...args,
       doctorClerkId,
     });
-    
+
+    // Resolve the doctor's planKey to pass to the reminder scheduler
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", doctorClerkId))
+      .unique();
+    const planKey = user?.planKey ?? "free";
+
+    // Schedule the 3 patient reminders (no-op for free plan)
+    await ctx.scheduler.runAfter(
+      0,
+      internal.appointmentReminders.scheduleReminders,
+      { appointmentId, doctorClerkId, planKey }
+    );
+
     return appointmentId;
   },
 });
@@ -125,6 +140,18 @@ export const remove = mutation({
     if (!appointment || appointment.doctorClerkId !== identity.subject) {
       throw new Error("Appointment not found or unauthorized");
     }
+
+    // Cancel any pending reminder scheduled functions before deleting
+    // We pass the schedule IDs so the internal mutation doesn't need to read the deleted appointment
+    await ctx.scheduler.runAfter(
+      0,
+      internal.appointmentReminders.cancelReminders,
+      { 
+        appointmentId: args.appointmentId,
+        scheduleIds: appointment.reminderScheduleIds ?? []
+      }
+    );
+
     await ctx.db.delete(args.appointmentId);
   },
 });

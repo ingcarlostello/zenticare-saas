@@ -68,7 +68,9 @@
     "showMore": "mais",
     "eventCreated": "Evento criado com sucesso",
     "eventDeleted": "Evento excluído com sucesso",
-    "openGoogleCalendar": "Abrir no Google Calendar"
+    "openGoogleCalendar": "Abrir no Google Calendar",
+    "remindersWillBeSent": "3 lembretes serão enviados ao paciente",
+    "remindersProOnly": "Lembretes de consulta disponíveis no plano Pro"
   },
   "patients": {
     "title": "Pacientes",

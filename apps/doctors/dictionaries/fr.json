@@ -68,7 +68,9 @@
     "showMore": "plus",
     "eventCreated": "Événement créé avec succès",
     "eventDeleted": "Événement supprimé avec succès",
-    "openGoogleCalendar": "Ouvrir dans Google Calendar"
+    "openGoogleCalendar": "Ouvrir dans Google Calendar",
+    "remindersWillBeSent": "3 rappels seront envoyés au patient",
+    "remindersProOnly": "Rappels de rendez-vous disponibles avec le plan Pro"
   },
   "patients": {
     "title": "Patients",
