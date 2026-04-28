@@ -120,5 +120,21 @@
     "openBtn": "Open in Google Calendar",
     "openBtnMobile": "Open",
     "disconnectBtn": "Disconnect"
+  },
+  "features": {
+    "panelTitle": "Your Features",
+    "yourPlan": "Plan",
+    "active": "Active",
+    "locked": "Locked",
+    "upgradeTitle": "Unlock this feature",
+    "upgradeDescription": "This feature is available on the Pro plan.",
+    "upgradeBtn": "Upgrade to Pro",
+    "messagesUsed": "used",
+    "messagesUnlimited": "Unlimited messages",
+    "featureLabels": {
+      "chat_messages": "Chat Messages",
+      "chat_attachments": "File & Image Attachments",
+      "scheduled_reminders": "Automatic Reminders"
+    }
   }
 }

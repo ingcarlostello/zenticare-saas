@@ -22,6 +22,7 @@ export default defineSchema({
     canceledAt: v.optional(v.string()),
     pausedAt: v.optional(v.string()),
     subscriptionOccurredAt: v.optional(v.string()),
+    messageCount: v.optional(v.number()),
   }).index("by_clerkId", ["clerkId"])
     .index("by_paddleCustomerId", ["paddleCustomerId"]),
 
