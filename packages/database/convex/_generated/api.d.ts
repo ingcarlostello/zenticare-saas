@@ -15,10 +15,12 @@ import type * as googleCalendarEvents from "../googleCalendarEvents.js";
 import type * as googleCalendarTokens from "../googleCalendarTokens.js";
 import type * as http from "../http.js";
 import type * as lib_encryption from "../lib/encryption.js";
+import type * as lib_featureAccess from "../lib/featureAccess.js";
 import type * as lib_googleApiParser from "../lib/googleApiParser.js";
 import type * as paddle from "../paddle.js";
 import type * as paddle_routes from "../paddle_routes.js";
 import type * as patients from "../patients.js";
+import type * as plans from "../plans.js";
 import type * as users from "../users.js";
 
 import type {
@@ -35,10 +37,12 @@ declare const fullApi: ApiFromModules<{
   googleCalendarTokens: typeof googleCalendarTokens;
   http: typeof http;
   "lib/encryption": typeof lib_encryption;
+  "lib/featureAccess": typeof lib_featureAccess;
   "lib/googleApiParser": typeof lib_googleApiParser;
   paddle: typeof paddle;
   paddle_routes: typeof paddle_routes;
   patients: typeof patients;
+  plans: typeof plans;
   users: typeof users;
 }>;
 
