@@ -22,6 +22,7 @@ export function AppointmentModal({
     modalRef,
     displayStart,
     displayEnd,
+    canUseReminders,
   } = useAppointmentModal({
     isOpen,
     onClose,
@@ -81,6 +82,21 @@ export function AppointmentModal({
                 <strong>{dict.calendar.end}:</strong> {displayEnd.toLocaleString()}
               </p>
             </div>
+          )}
+
+          {/* Reminder badge — only shown when creating a new appointment */}
+          {!selectedEvent && (
+            canUseReminders ? (
+              <div className="flex items-center gap-2 text-sm bg-success/10 border border-success/30 text-success rounded-lg px-3 py-2">
+                <span>✓</span>
+                <span>{dict.calendar.remindersWillBeSent}</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 text-sm bg-base-200 border border-base-300 text-base-content/50 rounded-lg px-3 py-2">
+                <span>🔒</span>
+                <span>{dict.calendar.remindersProOnly}</span>
+              </div>
+            )
           )}
 
           <div className="modal-action flex justify-between items-center">

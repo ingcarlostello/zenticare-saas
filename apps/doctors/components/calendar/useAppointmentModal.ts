@@ -5,6 +5,7 @@ import { api } from "@repo/database/convex/_generated/api";
 import { useState, useEffect, useRef } from "react";
 import { Id } from "@repo/database/convex/_generated/dataModel";
 import { CalendarEvent } from "./calendar.types";
+import { useFeatureAccess } from "../../hooks/useFeatureAccess";
 
 interface UseAppointmentModalProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ export function useAppointmentModal({
   const [title, setTitle] = useState("");
   const [patientId, setPatientId] = useState<Id<"patients"> | "">("");
   
+  const { canUseReminders } = useFeatureAccess();
   const patients = useQuery(api.patients.listByDoctor);
   const createAppointment = useMutation(api.appointments.create);
   const updateAppointment = useMutation(api.appointments.update);
@@ -129,6 +131,7 @@ export function useAppointmentModal({
     modalRef,
     displayStart,
     displayEnd,
-    isSubmitting: false, // Could add actual loading state if mutation returns a promise we track
+    isSubmitting: false,
+    canUseReminders,
   };
 }

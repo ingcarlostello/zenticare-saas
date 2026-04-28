@@ -50,11 +50,28 @@ export default defineSchema({
     color: v.optional(v.string()),
     googleEventId: v.optional(v.string()),
     isAllDay: v.optional(v.boolean()),
+    // IDs of the 3 scheduled reminder functions — stored so we can cancel them on deletion
+    reminderScheduleIds: v.optional(v.array(v.id("_scheduled_functions"))),
   })
     .index("by_doctorClerkId", ["doctorClerkId"])
     .index("by_patientId", ["patientId"])
     .index("by_doctor_and_time", ["doctorClerkId", "start"])
     .index("by_google_event_id", ["googleEventId"]),
+
+  // Log of reminders that have been sent (or should be sent).
+  // Serves as the delivery record until a real email/SMS service is wired up.
+  reminders_log: defineTable({
+    appointmentId: v.id("appointments"),
+    patientId: v.id("patients"),
+    doctorClerkId: v.string(),
+    // "48h_before" | "evening_before" | "2h_before"
+    reminderType: v.string(),
+    scheduledFor: v.number(), // timestamp ms of when the reminder fires
+    firedAt: v.optional(v.number()), // timestamp ms of when it actually ran
+    status: v.string(), // "pending" | "fired" | "canceled"
+  })
+    .index("by_appointment", ["appointmentId"])
+    .index("by_doctor", ["doctorClerkId"]),
 
   google_calendar_tokens: defineTable({
     doctorId: v.string(), // Clerk userId
