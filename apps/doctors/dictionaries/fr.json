@@ -138,5 +138,33 @@
       "chat_attachments": "Fichiers et Images Joints",
       "scheduled_reminders": "Rappels Automatiques"
     }
+  },
+  "chat": {
+    "title": "Discussions",
+    "searchPlaceholder": "Rechercher des conversations...",
+    "allConversations": "Tous",
+    "noConversations": "Aucune conversation pour le moment",
+    "noConversationsDesc": "Démarrez une nouvelle discussion avec l'un de vos patients.",
+    "newChat": "Nouvelle Discussion",
+    "selectConversation": "Sélectionnez une conversation pour commencer à envoyer des messages",
+    "typeMessage": "Tapez un message...",
+    "send": "Envoyer",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "attachFile": "Joindre un fichier",
+    "attachImage": "Joindre une image",
+    "attachmentProOnly": "Les pièces jointes sont disponibles avec le plan Pro",
+    "messageLimitReached": "Limite de messages atteinte",
+    "messageLimitDesc": "Vous avez utilisé vos {limit} messages. Passez au Pro pour des messages illimités.",
+    "messagesRemaining": "{count} messages restants",
+    "upgradeForAttachments": "Passez au Pro pour envoyer des fichiers et des images",
+    "selectPatient": "Sélectionner un patient",
+    "noMessages": "Pas encore de messages. Dites bonjour !",
+    "imagePreview": "Image",
+    "documentAttachment": "Document",
+    "downloadFile": "Télécharger",
+    "sending": "Envoi en cours...",
+    "fileTooLarge": "Le fichier est trop volumineux. La taille maximale est de 10 Mo.",
+    "unsupportedFile": "Type de fichier non pris en charge"
   }
 }
