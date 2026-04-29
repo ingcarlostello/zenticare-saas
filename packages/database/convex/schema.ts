@@ -79,4 +79,36 @@ export default defineSchema({
     encryptedRefreshToken: v.string(),
     tokenExpiry: v.number(), // timestamp ms
   }).index("by_doctor", ["doctorId"]),
+
+  // ── Chat ────────────────────────────────────────────────────────────────
+  // One conversation per doctor-patient pair.
+  // Denormalized last-message fields power the conversation list without
+  // needing to scan the messages table.
+  conversations: defineTable({
+    doctorClerkId: v.string(),
+    patientId: v.id("patients"),
+    lastMessageText: v.optional(v.string()),
+    lastMessageAt: v.optional(v.number()),
+    unreadByDoctor: v.optional(v.number()),
+    unreadByPatient: v.optional(v.number()),
+  })
+    .index("by_doctor", ["doctorClerkId"])
+    .index("by_doctor_and_patient", ["doctorClerkId", "patientId"])
+    .index("by_doctor_and_lastMessage", ["doctorClerkId", "lastMessageAt"])
+    .index("by_patient", ["patientId"]),
+
+  // Individual chat messages.
+  // senderType: "doctor" | "patient"
+  // senderId: doctorClerkId (string) when doctor, or patientId (Id<"patients">) when patient
+  messages: defineTable({
+    conversationId: v.id("conversations"),
+    senderType: v.string(),
+    senderId: v.string(),
+    text: v.optional(v.string()),
+    // Attachments (Pro+ only for doctors)
+    attachmentStorageId: v.optional(v.id("_storage")),
+    attachmentType: v.optional(v.string()),   // "image" | "pdf" | "document"
+    attachmentName: v.optional(v.string()),   // original file name
+  })
+    .index("by_conversation", ["conversationId"]),
 });

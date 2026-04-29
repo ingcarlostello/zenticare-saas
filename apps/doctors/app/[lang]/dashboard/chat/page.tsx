@@ -1,5 +1,6 @@
 import { Locale } from "../../../i18n/config";
 import { getDictionary } from "../../../i18n/get-dictionary";
+import { ChatClient } from "../../../../components/chat/ChatClient";
 
 export default async function ChatPage({
   params,
@@ -10,9 +11,10 @@ export default async function ChatPage({
   const dict = await getDictionary(lang as Locale);
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold">{dict.sidebar.chat}</h1>
-      <p className="mt-4 opacity-70">Contenido de chat en construcción...</p>
+    <div className="h-[calc(100dvh-64px)] p-4 overflow-hidden">
+      <div className="h-full flex flex-col bg-base-100 rounded-2xl border border-base-200 shadow-sm overflow-hidden">
+        <ChatClient dict={dict} lang={lang} />
+      </div>
     </div>
   );
 }

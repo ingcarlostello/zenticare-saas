@@ -10,6 +10,7 @@
 
 import type * as appointmentReminders from "../appointmentReminders.js";
 import type * as appointments from "../appointments.js";
+import type * as chat from "../chat.js";
 import type * as constants from "../constants.js";
 import type * as googleCalendarActions from "../googleCalendarActions.js";
 import type * as googleCalendarEvents from "../googleCalendarEvents.js";
@@ -33,6 +34,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   appointmentReminders: typeof appointmentReminders;
   appointments: typeof appointments;
+  chat: typeof chat;
   constants: typeof constants;
   googleCalendarActions: typeof googleCalendarActions;
   googleCalendarEvents: typeof googleCalendarEvents;
