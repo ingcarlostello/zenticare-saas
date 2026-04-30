@@ -5,6 +5,7 @@ import { CalendarDays } from "lucide-react";
 interface CalendarDisconnectedProps {
   onConnect: () => void;
   isConnecting: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dict: any; // Using any for simplicity, can type it properly with the dictionary type later
 }
 

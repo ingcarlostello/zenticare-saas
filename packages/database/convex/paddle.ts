@@ -101,10 +101,10 @@ export const createCustomerPortalSession = action({
   args: {
     clerkId: v.string(),
   },
-  handler: async (ctx, args) => {
-    const user = await ctx.runQuery(internal.users.getUserByClerkId, {
+  handler: async (ctx, args): Promise<string> => {
+    const user = (await ctx.runQuery(internal.users.getUserByClerkId, {
       clerkId: args.clerkId,
-    });
+    })) as { paddleCustomerId?: string } | null;
 
     if (!user || !user.paddleCustomerId) {
       throw new Error("User not found or no paddle customer ID associated.");
@@ -121,7 +121,7 @@ export const createCustomerPortalSession = action({
       ? "https://api.paddle.com"
       : "https://sandbox-api.paddle.com";
 
-    const response = await fetch(`${apiUrl}/customers/${user.paddleCustomerId}/portal-sessions`, {
+    const response: Response = await fetch(`${apiUrl}/customers/${user.paddleCustomerId}/portal-sessions`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${PADDLE_API_KEY}`,
@@ -135,7 +135,7 @@ export const createCustomerPortalSession = action({
       throw new Error("Failed to create portal session on Paddle");
     }
 
-    const json = await response.json();
+    const json = (await response.json()) as any;
     if (json?.data?.urls?.general?.overview) {
       return json.data.urls.general.overview as string;
     }

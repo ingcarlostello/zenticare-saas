@@ -104,9 +104,9 @@ export function usePatientMessages(patientId: Id<"patients">) {
 
       setInputText("");
       setUploadingFile(null);
-    } catch (err: any) {
+    } catch (err) {
       console.error("Failed to send message:", err);
-      const msg = err.message || "";
+      const msg = (err as Error).message || "";
       if (msg.includes("MESSAGE_LIMIT_REACHED")) {
         setError("MESSAGE_LIMIT_REACHED");
       } else if (msg.includes("ATTACHMENTS_NOT_AVAILABLE")) {

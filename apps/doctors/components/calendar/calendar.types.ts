@@ -7,10 +7,12 @@ export interface CalendarEvent {
   start: Date;
   end: Date;
   patientId?: Id<"patients">;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
 export interface AppointmentModalProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dict: any;
   isOpen: boolean;
   onClose: () => void;
@@ -19,6 +21,7 @@ export interface AppointmentModalProps {
 }
 
 export interface CalendarViewProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dict: any;
   lang: Locale;
 }

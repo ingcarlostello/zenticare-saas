@@ -1,6 +1,6 @@
 import { action } from "./_generated/server";
 import { v } from "convex/values";
-import { api } from "./_generated/api";
+import { api, internal } from "./_generated/api";
 import { URL_GOOGLE_CALENDAR_EVENTS, URL_GOOGLE_CALENDAR_TOKEN } from "./constants";
 
 export const exchangeToken = action({
@@ -89,7 +89,7 @@ export const syncEvents = action({
 
     const doctorClerkId = identity.subject;
 
-    const tokens = await ctx.runQuery(api.googleCalendarTokens.getTokens as any, { doctorClerkId });
+    const tokens = await ctx.runQuery(internal.googleCalendarTokens.getTokens, { doctorClerkId });
     if (!tokens) {
       throw new Error("Google Calendar not connected");
     }
@@ -198,7 +198,7 @@ async function refreshAccessToken(ctx: any, doctorClerkId: string, refreshToken:
 }
 
 async function getValidAccessToken(ctx: any, doctorClerkId: string) {
-  const tokens = await ctx.runQuery(api.googleCalendarTokens.getTokens as any, { doctorClerkId });
+  const tokens = await ctx.runQuery(internal.googleCalendarTokens.getTokens, { doctorClerkId });
   if (!tokens) {
     return null;
   }

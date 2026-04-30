@@ -16,7 +16,6 @@ export function MessageInput({
   uploadingFile,
   canSendAttachments,
   isLimitReached,
-  remaining,
   isFree,
   limit,
   messageCount,

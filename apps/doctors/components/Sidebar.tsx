@@ -3,7 +3,6 @@ import { BillingButton } from "./BillingButton";
 import { Locale } from "../app/i18n/config";
 import {
   House,
-  User,
   Users,
   MessageSquare,
   SlidersHorizontal,
@@ -13,7 +12,21 @@ import {
 } from "lucide-react";
 
 interface SidebarProps {
-  dict: any;
+  dict: {
+    sidebar: {
+      dashboard: string;
+      calendar: string;
+      patients: string;
+      chat: string;
+      settings: string;
+      billing?: string;
+      planTooltipPro: string;
+      planProLabel: string;
+      planTooltipFree: string;
+      planFreeLabel: string;
+      planUpgrade: string;
+    };
+  };
   lang: Locale;
   showAsPro: boolean;
 }

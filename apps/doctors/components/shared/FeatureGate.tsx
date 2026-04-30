@@ -17,7 +17,8 @@ interface FeatureGateProps {
   /** Current locale for the upgrade link */
   lang?: string;
   /** i18n dictionary forwarded to the overlay */
-  dict?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dict?: { pricing: any; features?: any };
 }
 
 /**

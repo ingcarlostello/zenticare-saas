@@ -1,7 +1,7 @@
 "use client";
 
 import { Download, FileText, Image as ImageIcon } from "lucide-react";
-import type { EnrichedMessage, AttachmentPreviewProps } from "./chat.types";
+import type { AttachmentPreviewProps } from "./chat.types";
 
 
 export function AttachmentPreview({ message, dict }: AttachmentPreviewProps) {

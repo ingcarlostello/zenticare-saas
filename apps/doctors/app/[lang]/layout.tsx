@@ -2,8 +2,6 @@ import Image from "next/image";
 import { ThemeProvider } from "@repo/ui/ThemeProvider";
 import { ThemeSwitcher } from "@repo/ui/ThemeSwitcher";
 import { LanguageSwitcher } from "@repo/ui/LanguageSwitcher";
-import { Locale } from "../i18n/config";
-import { getDictionary } from "../i18n/get-dictionary";
 import { Show, UserButton } from "@clerk/nextjs";
 import localFont from "next/font/local";
 import { ClerkProviderWithLocale } from "../components/ClerkProviderWithLocale";
@@ -27,7 +25,6 @@ export default async function LangLayout({
   params: Promise<{ lang: string }>;
 }>) {
   const { lang } = await params;
-  const dict = await getDictionary(lang as Locale);
 
   return (
     <html lang={lang} suppressHydrationWarning>

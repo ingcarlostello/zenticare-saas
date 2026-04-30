@@ -10,7 +10,7 @@ export function useConversations() {
   const [search, setSearch] = useState("");
 
   const isLoading = raw === undefined;
-  const conversations: EnrichedConversation[] = raw ?? [];
+  const conversations: EnrichedConversation[] = useMemo(() => raw ?? [], [raw]);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return conversations;

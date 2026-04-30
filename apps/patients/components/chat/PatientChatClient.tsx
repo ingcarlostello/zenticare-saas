@@ -10,7 +10,8 @@ export function PatientChatClient({
   lang, 
   patientId 
 }: { 
-  dict: any; 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dict: { chat: any }; 
   lang: string; 
   patientId: string;
 }) {
@@ -83,7 +84,6 @@ export function PatientChatClient({
         uploadingFile={!!uploadingFile}
         canSendAttachments={true} // The server will reject if doctor's plan doesn't allow it
         isLimitReached={error === "MESSAGE_LIMIT_REACHED"}
-        remaining={Infinity}
         isFree={false} 
         limit={Infinity}
         messageCount={0}

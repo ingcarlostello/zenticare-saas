@@ -25,7 +25,7 @@ async function getCryptoKey(): Promise<CryptoKey> {
   const keyBuffer = getMasterKeyBuffer();
   return await crypto.subtle.importKey(
     "raw",
-    keyBuffer,
+    keyBuffer as BufferSource,
     { name: "AES-GCM", length: 256 },
     false,
     ["encrypt", "decrypt"]
@@ -76,7 +76,8 @@ export async function decryptToken(encryptedString: string): Promise<string> {
     throw new Error("Invalid encrypted string format");
   }
   
-  const [ivBase64, cipherBase64] = parts;
+  const ivBase64 = parts[0]!;
+  const cipherBase64 = parts[1]!;
   
   // Decodificar IV
   const ivBinaryString = atob(ivBase64);

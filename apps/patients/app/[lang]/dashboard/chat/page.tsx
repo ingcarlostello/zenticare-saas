@@ -1,5 +1,6 @@
 import { PatientChatClient } from "../../../../components/chat/PatientChatClient";
 import { getDictionary } from "../../../i18n/get-dictionary";
+import { Locale } from "../../../i18n/config";
 
 export default async function ChatPage({
   params,
@@ -11,7 +12,7 @@ export default async function ChatPage({
   const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
   
-  const dict = await getDictionary(resolvedParams.lang as any);
+  const dict = await getDictionary(resolvedParams.lang as Locale);
   
   // Simulated patient identification for dev
   const patientId = resolvedSearchParams.patientId;

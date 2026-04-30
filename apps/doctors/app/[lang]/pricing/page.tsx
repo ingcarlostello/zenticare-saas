@@ -3,6 +3,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { getPlanWeight } from "../../../lib/plans";
 import { PricingUI } from "./PricingUI";
 import { PLANS } from "../../../constants/pricing.const";
+import { Locale } from "../../i18n/config";
 
 export default async function PricingPage({
   params,
@@ -10,7 +11,7 @@ export default async function PricingPage({
   params: Promise<{ lang: string }>;
 }) {
   const resolvedParams = await params;
-  const dict = await getDictionary(resolvedParams.lang as any);
+  const dict = await getDictionary(resolvedParams.lang as Locale);
 
   const user = await currentUser();
   const userId = user?.id;

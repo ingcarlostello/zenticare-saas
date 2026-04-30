@@ -1,7 +1,7 @@
 "use client";
 
 import { AttachmentPreview } from "./AttachmentPreview";
-import type { EnrichedMessage, MessageBubbleProps } from "./chat.types";
+import type { MessageBubbleProps } from "./chat.types";
 import { formatMessageTime } from "./chat.utils";
 
 

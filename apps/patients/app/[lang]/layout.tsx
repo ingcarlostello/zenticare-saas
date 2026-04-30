@@ -4,8 +4,6 @@ import "../globals.css";
 import { ThemeProvider } from "@repo/ui/ThemeProvider";
 import { ThemeSwitcher } from "@repo/ui/ThemeSwitcher";
 import { LanguageSwitcher } from "@repo/ui/LanguageSwitcher";
-import { Locale } from "../i18n/config";
-import { getDictionary } from "../i18n/get-dictionary";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -31,7 +29,6 @@ export default async function RootLayout({
   params: Promise<{ lang: string }>;
 }>) {
   const { lang } = await params;
-  const dict = await getDictionary(lang as Locale);
 
   return (
     <html lang={lang} suppressHydrationWarning>

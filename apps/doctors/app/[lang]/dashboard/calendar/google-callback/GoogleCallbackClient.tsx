@@ -7,6 +7,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 interface GoogleCallbackClientProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dict: any;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { RefreshCw, ExternalLink, LogOut } from "lucide-react";
+import { RefreshCw, LogOut } from "lucide-react";
 
 interface CalendarToolbarProps {
   onSync: () => void;
@@ -8,6 +8,7 @@ interface CalendarToolbarProps {
   onDisconnect: () => void;
   isDisconnecting: boolean;
   onOpenGoogleCalendar: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dict: any;
 }
 
