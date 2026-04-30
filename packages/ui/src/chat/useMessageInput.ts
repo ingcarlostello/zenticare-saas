@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useCallback, useState } from "react";
 
 interface UseMessageInputProps {

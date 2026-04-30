@@ -2,7 +2,7 @@
 
 import { Search, Plus } from "lucide-react";
 import { ConversationItem } from "./ConversationItem";
-import type { EnrichedConversation, ConversationListProps } from "./chat.types";
+import type { EnrichedConversation, ConversationListProps } from "@repo/ui/chat";
 import type { Id } from "@repo/database/convex/_generated/dataModel";
 
 

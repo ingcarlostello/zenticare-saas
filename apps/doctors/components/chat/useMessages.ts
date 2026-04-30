@@ -5,7 +5,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "@repo/database/convex/_generated/api";
 import { useFeatureAccess } from "../../hooks/useFeatureAccess";
 import type { Id } from "@repo/database/convex/_generated/dataModel";
-import type { EnrichedMessage } from "./chat.types";
+import type { EnrichedMessage } from "@repo/ui/chat";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 

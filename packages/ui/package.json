@@ -13,6 +13,11 @@
       "import": "./src/auth.ts",
       "default": "./src/auth.ts"
     },
+    "./chat": {
+      "types": "./src/chat/index.ts",
+      "import": "./src/chat/index.ts",
+      "default": "./src/chat/index.ts"
+    },
     "./*": {
       "types": "./src/*.tsx",
       "import": "./src/*.tsx",

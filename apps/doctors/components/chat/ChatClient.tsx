@@ -5,7 +5,7 @@ import { ConversationList } from "./ConversationList";
 import { MessageArea } from "./MessageArea";
 import { EmptyChat } from "./EmptyChat";
 import { NewChatModal } from "./NewChatModal";
-import type { ChatViewProps } from "./chat.types";
+import type { ChatViewProps } from "@repo/ui/chat";
 
 export function ChatClient({ dict, lang }: ChatViewProps) {
   const {
