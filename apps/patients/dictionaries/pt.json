@@ -3,5 +3,49 @@
     "title": "Bem-vindo ao Painel dos Médicos da Zenticare",
     "description": "Faça a gestão dos seus pacientes e da sua agenda com eficiência.",
     "themeList": "Lista de temas"
+  },
+  "features": {
+    "panelTitle": "Suas Funcionalidades",
+    "yourPlan": "Plano",
+    "active": "Ativo",
+    "locked": "Bloqueado",
+    "upgradeTitle": "Desbloqueie esta funcionalidade",
+    "upgradeDescription": "Esta funcionalidade está disponível no plano Pro.",
+    "upgradeBtn": "Atualizar para Pro",
+    "messagesUsed": "usados",
+    "messagesUnlimited": "Mensagens ilimitadas",
+    "featureLabels": {
+      "chat_messages": "Mensagens de Chat",
+      "chat_attachments": "Arquivos e Imagens Anexos",
+      "scheduled_reminders": "Lembretes Automáticos"
+    }
+  },
+  "chat": {
+    "title": "Bate-papo",
+    "searchPlaceholder": "Pesquisar conversas...",
+    "allConversations": "Todos",
+    "noConversations": "Nenhuma conversa aún",
+    "noConversationsDesc": "Inicie um novo bate-papo com um dos seus pacientes.",
+    "newChat": "Novo Bate-papo",
+    "selectConversation": "Selecione uma conversa para começar a enviar mensagens",
+    "typeMessage": "Digite una mensagem...",
+    "send": "Enviar",
+    "today": "Hoje",
+    "yesterday": "Ontem",
+    "attachFile": "Anexar arquivo",
+    "attachImage": "Anexar imagem",
+    "attachmentProOnly": "Anexos de arquivos disponíveis no plano Pro",
+    "messageLimitReached": "Limite de mensagens atingido",
+    "messageLimitDesc": "Você usou todas as {limit} mensagens. Atualize para o Pro para mensagens ilimitadas.",
+    "messagesRemaining": "{count} mensagens restantes",
+    "upgradeForAttachments": "Atualize para o Pro para enviar arquivos e imagens",
+    "selectPatient": "Selecionar um paciente",
+    "noMessages": "Nenhuma mensagem aún. Diga olá!",
+    "imagePreview": "Imagem",
+    "documentAttachment": "Documento",
+    "downloadFile": "Baixar",
+    "sending": "Enviando...",
+    "fileTooLarge": "O arquivo é muito grande. O tamanho máximo é 10 MB.",
+    "unsupportedFile": "Tipo de arquivo não suportado"
   }
 }

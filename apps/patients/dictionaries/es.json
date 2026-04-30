@@ -3,5 +3,49 @@
     "title": "Bienvenido al Panel de Doctores de Zenticare",
     "description": "Gestiona tus pacientes y agenda de forma eficiente.",
     "themeList": "Lista de temas"
+  },
+  "features": {
+    "panelTitle": "Tus Funcionalidades",
+    "yourPlan": "Plan",
+    "active": "Activo",
+    "locked": "Bloqueado",
+    "upgradeTitle": "Desbloquea esta función",
+    "upgradeDescription": "Esta función está disponible en el plan Pro.",
+    "upgradeBtn": "Mejorar a Pro",
+    "messagesUsed": "usados",
+    "messagesUnlimited": "Mensajes ilimitados",
+    "featureLabels": {
+      "chat_messages": "Mensajes de Chat",
+      "chat_attachments": "Archivos e Imágenes Adjuntas",
+      "scheduled_reminders": "Recordatorios Automáticos"
+    }
+  },
+  "chat": {
+    "title": "Chat",
+    "searchPlaceholder": "Buscar conversaciones...",
+    "allConversations": "Todos",
+    "noConversations": "No hay conversaciones aún",
+    "noConversationsDesc": "Inicia un nuevo chat con uno de tus pacientes.",
+    "newChat": "Nuevo Chat",
+    "selectConversation": "Selecciona una conversación para comenzar a enviar mensajes",
+    "typeMessage": "Escribe un mensaje...",
+    "send": "Enviar",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "attachFile": "Adjuntar archivo",
+    "attachImage": "Adjuntar imagen",
+    "attachmentProOnly": "Los archivos adjuntos están disponibles en el plan Pro",
+    "messageLimitReached": "Límite de mensajes alcanzado",
+    "messageLimitDesc": "Has utilizado los {limit} mensajes disponibles. Actualiza a Pro para mensajes ilimitados.",
+    "messagesRemaining": "{count} mensajes restantes",
+    "upgradeForAttachments": "Actualiza a Pro para enviar archivos e imágenes",
+    "selectPatient": "Seleccionar un paciente",
+    "noMessages": "No hay mensajes aún. ¡Di hola!",
+    "imagePreview": "Imagen",
+    "documentAttachment": "Documento",
+    "downloadFile": "Descargar",
+    "sending": "Enviando...",
+    "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 10 MB.",
+    "unsupportedFile": "Tipo de archivo no soportado"
   }
 }

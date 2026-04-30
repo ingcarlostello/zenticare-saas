@@ -1,7 +1,7 @@
 "use client";
 
-import type { EnrichedConversation, ConversationItemProps } from "./chat.types";
-import { formatRelativeTime, getInitials } from "./chat.utils";
+import type { EnrichedConversation, ConversationItemProps } from "@repo/ui/chat";
+import { formatRelativeTime, getInitials } from "@repo/ui/chat";
 
 
 export function ConversationItem({

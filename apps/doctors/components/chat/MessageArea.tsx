@@ -1,11 +1,8 @@
 "use client";
 
 import { ArrowLeft, MessageCircle } from "lucide-react";
-import { MessageBubble } from "./MessageBubble";
-import { MessageInput } from "./MessageInput";
 import { useMessages } from "./useMessages";
-import { getInitials } from "./chat.utils";
-import type { MessageAreaProps } from "./chat.types";
+import { MessageBubble, MessageInput, getInitials, type MessageAreaProps } from "@repo/ui/chat";
 import type { Id } from "@repo/database/convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import { api } from "@repo/database/convex/_generated/api";

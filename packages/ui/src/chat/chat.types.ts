@@ -93,6 +93,7 @@ export interface MessageAreaProps {
 export interface MessageBubbleProps {
   message: EnrichedMessage;
   dict: any;
+  currentUserType?: "doctor" | "patient";
 }
 
 export interface MessageInputProps {

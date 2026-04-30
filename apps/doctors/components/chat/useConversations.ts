@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@repo/database/convex/_generated/api";
-import type { EnrichedConversation } from "./chat.types";
+import type { EnrichedConversation } from "@repo/ui/chat";
 
 export function useConversations() {
   const raw = useQuery(api.chat.listConversations);

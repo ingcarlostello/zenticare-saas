@@ -5,16 +5,16 @@ import type { EnrichedMessage, MessageBubbleProps } from "./chat.types";
 import { formatMessageTime } from "./chat.utils";
 
 
-export function MessageBubble({ message, dict }: MessageBubbleProps) {
-  const isDoctor = message.senderType === "doctor";
+export function MessageBubble({ message, dict, currentUserType = "doctor" }: MessageBubbleProps) {
+  const isCurrentUser = message.senderType === currentUserType;
 
   const time = formatMessageTime(message._creationTime);
 
   return (
-    <div className={`flex ${isDoctor ? "justify-end" : "justify-start"} mb-2`}>
+    <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} mb-2`}>
       <div
         className={`max-w-[75%] sm:max-w-[65%] ${
-          isDoctor
+          isCurrentUser
             ? "bg-primary text-primary-content rounded-2xl rounded-br-md"
             : "bg-base-200 text-base-content rounded-2xl rounded-bl-md"
         } px-4 py-2.5 shadow-sm`}
@@ -32,7 +32,7 @@ export function MessageBubble({ message, dict }: MessageBubbleProps) {
         {/* Timestamp */}
         <div
           className={`text-[10px] mt-1 ${
-            isDoctor ? "text-primary-content/60" : "opacity-40"
+            isCurrentUser ? "text-primary-content/60" : "opacity-40"
           } text-right`}
         >
           {time}

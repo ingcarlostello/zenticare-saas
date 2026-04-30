@@ -3,5 +3,49 @@
     "title": "Welcome to Zenticare Doctors Dashboard",
     "description": "Manage your patients and schedule efficiently.",
     "themeList": "Theme list"
+  },
+  "features": {
+    "panelTitle": "Your Features",
+    "yourPlan": "Plan",
+    "active": "Active",
+    "locked": "Locked",
+    "upgradeTitle": "Unlock this feature",
+    "upgradeDescription": "This feature is available on the Pro plan.",
+    "upgradeBtn": "Upgrade to Pro",
+    "messagesUsed": "used",
+    "messagesUnlimited": "Unlimited messages",
+    "featureLabels": {
+      "chat_messages": "Chat Messages",
+      "chat_attachments": "File & Image Attachments",
+      "scheduled_reminders": "Automatic Reminders"
+    }
+  },
+  "chat": {
+    "title": "Chat",
+    "searchPlaceholder": "Search conversations...",
+    "allConversations": "All",
+    "noConversations": "No conversations yet",
+    "noConversationsDesc": "Start a new chat with one of your patients.",
+    "newChat": "New Chat",
+    "selectConversation": "Select a conversation to start messaging",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "attachFile": "Attach file",
+    "attachImage": "Attach image",
+    "attachmentProOnly": "File attachments available on Pro plan",
+    "messageLimitReached": "Message limit reached",
+    "messageLimitDesc": "You have used all {limit} messages. Upgrade to Pro for unlimited messaging.",
+    "messagesRemaining": "{count} messages remaining",
+    "upgradeForAttachments": "Upgrade to Pro to send files and images",
+    "selectPatient": "Select a patient",
+    "noMessages": "No messages yet. Say hello!",
+    "imagePreview": "Image",
+    "documentAttachment": "Document",
+    "downloadFile": "Download",
+    "sending": "Sending...",
+    "fileTooLarge": "File is too large. Maximum size is 10 MB.",
+    "unsupportedFile": "Unsupported file type"
   }
 }
