@@ -19,6 +19,7 @@ export function useMessageInput({
 }: UseMessageInputProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
 
   const handleSend = useCallback(async () => {
@@ -27,6 +28,11 @@ export function useMessageInput({
 
     await onSend(inputText, pendingFile ?? undefined);
     setPendingFile(null);
+    
+    // Restore focus after sending
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 0);
   }, [inputText, pendingFile, isSending, isLimitReached, onSend]);
 
   const handleKeyDown = useCallback(
@@ -64,6 +70,7 @@ export function useMessageInput({
   return {
     fileInputRef,
     imageInputRef,
+    textareaRef,
     pendingFile,
     handleSend,
     handleKeyDown,

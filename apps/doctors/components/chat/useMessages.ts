@@ -40,12 +40,12 @@ export function useMessages(conversationId: Id<"conversations"> | null) {
     }
   }, [messages.length]);
 
-  // Mark as read when opening a conversation
+  // Mark as read when opening a conversation or new messages arrive
   useEffect(() => {
     if (conversationId) {
       markAsReadMutation({ conversationId }).catch(() => {});
     }
-  }, [conversationId, markAsReadMutation]);
+  }, [conversationId, messages.length, markAsReadMutation]);
 
   // Compute remaining messages
   const limit =
