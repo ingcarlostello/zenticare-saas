@@ -1,7 +1,7 @@
 "use client";
 
 import { Search, X, MessageSquarePlus } from "lucide-react";
-import type { Id, Doc } from "@repo/database/convex/_generated/dataModel";
+import type { Doc } from "@repo/database/convex/_generated/dataModel";
 import { getInitials, type NewChatModalProps } from "@repo/ui/chat";
 import { useNewChat } from "./useNewChat";
 

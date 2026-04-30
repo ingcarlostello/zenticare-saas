@@ -1,22 +1,5 @@
-import Image, { type ImageProps } from "next/image";
 import { Locale } from "../i18n/config";
 import { getDictionary } from "../i18n/get-dictionary";
-
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
 
 export default async function Home({
   params,
@@ -83,6 +66,7 @@ export default async function Home({
           <div className="stat-figure text-secondary">
             <div className="avatar avatar-online">
               <div className="w-16 rounded-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp" />
               </div>
             </div>
@@ -96,6 +80,7 @@ export default async function Home({
 
       <div className="card bg-base-100 w-96 shadow-sm">
         <figure>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
             alt="Shoes"

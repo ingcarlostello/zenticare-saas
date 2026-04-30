@@ -1,4 +1,4 @@
-import type { Id, Doc } from "@repo/database/convex/_generated/dataModel";
+import type { Id } from "@repo/database/convex/_generated/dataModel";
 
 // ── Conversation ──────────────────────────────────────────────────────────
 
@@ -62,7 +62,12 @@ export interface ChatDict {
 }
 
 export interface ChatViewProps {
-  dict: any;
+  dict: {
+    chat: ChatDict;
+    features?: {
+      upgradeBtn: string;
+    };
+  };
   lang: string;
 }
 
@@ -73,7 +78,7 @@ export interface ConversationItemProps {
 }
 
 export interface ConversationListProps {
-  dict: any;
+  dict: { chat: ChatDict };
   conversations: EnrichedConversation[];
   isLoading: boolean;
   search: string;
@@ -84,7 +89,7 @@ export interface ConversationListProps {
 }
 
 export interface MessageAreaProps {
-  dict: any;
+  dict: { chat: ChatDict };
   lang: string;
   conversationId: Id<"conversations">;
   onBack?: () => void;
@@ -92,12 +97,17 @@ export interface MessageAreaProps {
 
 export interface MessageBubbleProps {
   message: EnrichedMessage;
-  dict: any;
+  dict: { chat: ChatDict };
   currentUserType?: "doctor" | "patient";
 }
 
 export interface MessageInputProps {
-  dict: any;
+  dict: {
+    chat: ChatDict;
+    features?: {
+      upgradeBtn: string;
+    };
+  };
   lang: string;
   inputText: string;
   onInputChange: (value: string) => void;
@@ -106,7 +116,6 @@ export interface MessageInputProps {
   uploadingFile: boolean;
   canSendAttachments: boolean;
   isLimitReached: boolean;
-  remaining: number;
   isFree: boolean;
   limit: number;
   messageCount: number;
@@ -115,12 +124,17 @@ export interface MessageInputProps {
 }
 
 export interface NewChatModalProps {
-  dict: any;
+  dict: { 
+    chat: ChatDict;
+    patients?: {
+      noPatients: string;
+    };
+  };
   onClose: () => void;
   onCreated: (conversationId: Id<"conversations">) => void;
 }
 
 export interface AttachmentPreviewProps {
   message: EnrichedMessage;
-  dict: any;
+  dict: { chat: ChatDict };
 }

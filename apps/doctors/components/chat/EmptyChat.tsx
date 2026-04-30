@@ -3,7 +3,8 @@
 import { MessageSquare } from "lucide-react";
 
 interface EmptyChatProps {
-  dict: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dict: { chat: any };
 }
 
 export function EmptyChat({ dict }: EmptyChatProps) {

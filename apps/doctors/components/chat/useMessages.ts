@@ -110,10 +110,11 @@ export function useMessages(conversationId: Id<"conversations"> | null) {
         });
 
         setInputText("");
-      } catch (err: any) {
-        if (err.message?.includes("MESSAGE_LIMIT_REACHED")) {
+      } catch (err) {
+        const message = (err as Error).message || "";
+        if (message.includes("MESSAGE_LIMIT_REACHED")) {
           setError("MESSAGE_LIMIT_REACHED");
-        } else if (err.message?.includes("ATTACHMENTS_NOT_AVAILABLE")) {
+        } else if (message.includes("ATTACHMENTS_NOT_AVAILABLE")) {
           setError("ATTACHMENTS_NOT_AVAILABLE");
         } else {
           setError("SEND_ERROR");

@@ -4,6 +4,7 @@ import { PricingCard } from "../../../components/PricingCard";
 
 
 interface PricingUIProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dict: any;
   lang: string;
   userId?: string;

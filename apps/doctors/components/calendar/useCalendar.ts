@@ -47,9 +47,9 @@ export function useCalendar({ dict, lang }: CalendarViewProps) {
     setModalOpen(true);
   }, []);
 
-  const handleSelectEvent = useCallback((event: any) => {
+  const handleSelectEvent = useCallback((event: CalendarEvent) => {
     setSelectedSlot(null);
-    setSelectedEvent(event as CalendarEvent);
+    setSelectedEvent(event);
     setModalOpen(true);
   }, []);
 

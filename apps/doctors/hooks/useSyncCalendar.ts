@@ -5,7 +5,8 @@ import { useAction } from "convex/react";
 import { useState, useCallback } from "react";
 import { toast } from "react-hot-toast";
 
-export function useSyncCalendar(dict: any) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useSyncCalendar(dict: { googleCalendar: any }) {
   const syncAction = useAction(api.googleCalendarActions.syncEvents);
   const [isSyncing, setIsSyncing] = useState(false);
 

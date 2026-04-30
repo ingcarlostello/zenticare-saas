@@ -6,7 +6,8 @@ import { getGoogleOAuthUrl } from "../lib/google-calendar/constants";
 import { toast } from "react-hot-toast";
 import { api } from "@repo/database/convex/_generated/api";
 
-export function useGoogleAuth(dict: any) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useGoogleAuth(dict: { googleCalendar: any }) {
   const isConnected = useQuery(api.googleCalendarTokens.hasGoogleConnected);
   const deleteTokens = useMutation(api.googleCalendarTokens.deleteTokens);
   
@@ -23,7 +24,7 @@ export function useGoogleAuth(dict: any) {
         return;
       }
       window.location.href = url;
-    } catch (e) {
+    } catch {
       toast.error(dict.googleCalendar.initError || "Failed to initialize connection");
       setIsConnecting(false);
     }
@@ -34,7 +35,7 @@ export function useGoogleAuth(dict: any) {
     try {
       await deleteTokens();
       toast.success(dict.googleCalendar.disconnected || "Google Calendar disconnected successfully");
-    } catch (e) {
+    } catch {
       toast.error(dict.googleCalendar.disconnectError || "Failed to disconnect calendar");
     } finally {
       setIsDisconnecting(false);
