@@ -25,6 +25,7 @@ export function MessageInput({
   const {
     fileInputRef,
     imageInputRef,
+    textareaRef,
     pendingFile,
     handleSend,
     handleKeyDown,
@@ -151,6 +152,7 @@ export function MessageInput({
         {/* Text input */}
         <div className="flex-1 relative">
           <textarea
+            ref={textareaRef}
             className="textarea textarea-bordered w-full text-sm resize-none min-h-[40px] max-h-[120px] pr-12"
             placeholder={dict.chat.typeMessage}
             rows={1}

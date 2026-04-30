@@ -57,7 +57,7 @@ export function ConversationItem({
       </div>
 
       {/* Unread badge */}
-      {unread > 0 && (
+      {unread > 0 && !isSelected && (
         <div className="badge badge-primary badge-sm shrink-0">{unread}</div>
       )}
     </button>
