@@ -6,6 +6,8 @@ import { Sidebar } from "../../../components/Sidebar";
 import { PLANS } from "../../../constants/pricing.const";
 import { getPlanWeight } from "../../../lib/plans";
 
+import { ChatNotificationsProvider } from "../../../components/chat/ChatNotificationsProvider";
+
 export default async function DashboardLayout({
   children,
   params,
@@ -21,12 +23,14 @@ export default async function DashboardLayout({
   const showAsPro = getPlanWeight(userPlanKey) >= getPlanWeight(PLANS.PRO);
 
   return (
-    <div className="drawer lg:drawer-open h-full">
-      <DrawerControl />
-      <div className="drawer-content flex flex-col h-full overflow-y-auto">
-        {children}
+    <ChatNotificationsProvider>
+      <div className="drawer lg:drawer-open h-full">
+        <DrawerControl />
+        <div className="drawer-content flex flex-col h-full overflow-y-auto">
+          {children}
+        </div>
+        <Sidebar dict={dict} lang={lang as Locale} showAsPro={showAsPro} />
       </div>
-      <Sidebar dict={dict} lang={lang as Locale} showAsPro={showAsPro} />
-    </div>
+    </ChatNotificationsProvider>
   );
 }

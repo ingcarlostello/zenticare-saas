@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useConversations } from "./chat/useConversations";
 import { BillingButton } from "./BillingButton";
 import { Locale } from "../app/i18n/config";
 import {
@@ -32,6 +36,11 @@ interface SidebarProps {
 }
 
 export function Sidebar({ dict, lang, showAsPro }: SidebarProps) {
+  const pathname = usePathname();
+  const { totalUnread } = useConversations();
+  const isChatPage = pathname.includes('/chat');
+  const showRedDot = totalUnread > 0 && !isChatPage;
+
   return (
     <div className="drawer-side is-drawer-close:overflow-visible z-10 border-r border-base-200">
       <label
@@ -109,9 +118,25 @@ export function Sidebar({ dict, lang, showAsPro }: SidebarProps) {
               className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
               data-tip={dict.sidebar.chat}
             >
-              <MessageSquare />
-              <span className="is-drawer-close:hidden ml-2">
+              {/* Icon wrapper — the red dot sits on top of the icon when collapsed */}
+              <div className="relative inline-flex shrink-0">
+                <MessageSquare />
+                {showRedDot && (
+                  <span
+                    aria-hidden="true"
+                    className="is-drawer-open:hidden absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-error animate-heartbeat motion-reduce:animate-none"
+                  />
+                )}
+              </div>
+              {/* Label — the red dot sits after the text when expanded */}
+              <span className="is-drawer-close:hidden ml-2 flex items-center gap-2">
                 {dict.sidebar.chat}
+                {showRedDot && (
+                  <span
+                    aria-hidden="true"
+                    className="h-2 w-2 shrink-0 rounded-full bg-error animate-heartbeat motion-reduce:animate-none"
+                  />
+                )}
               </span>
             </Link>
           </li>

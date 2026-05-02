@@ -471,6 +471,12 @@
   --noise: 0;
 }
 
+/* ── Chat notification dot ───────────────────────────────────── */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.8; }
+}
 
-
-
+.animate-heartbeat {
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
