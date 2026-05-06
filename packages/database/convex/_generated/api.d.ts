@@ -16,6 +16,7 @@ import type * as googleCalendarActions from "../googleCalendarActions.js";
 import type * as googleCalendarEvents from "../googleCalendarEvents.js";
 import type * as googleCalendarTokens from "../googleCalendarTokens.js";
 import type * as http from "../http.js";
+import type * as i18n from "../i18n.js";
 import type * as lib_encryption from "../lib/encryption.js";
 import type * as lib_featureAccess from "../lib/featureAccess.js";
 import type * as lib_googleApiParser from "../lib/googleApiParser.js";
@@ -40,6 +41,7 @@ declare const fullApi: ApiFromModules<{
   googleCalendarEvents: typeof googleCalendarEvents;
   googleCalendarTokens: typeof googleCalendarTokens;
   http: typeof http;
+  i18n: typeof i18n;
   "lib/encryption": typeof lib_encryption;
   "lib/featureAccess": typeof lib_featureAccess;
   "lib/googleApiParser": typeof lib_googleApiParser;

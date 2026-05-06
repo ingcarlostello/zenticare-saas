@@ -4,6 +4,7 @@ import { useQuery, useMutation, useAction } from "convex/react";
 import { api } from "@repo/database/convex/_generated/api";
 import { useState, useEffect, useRef } from "react";
 import { Id } from "@repo/database/convex/_generated/dataModel";
+import { useParams } from "next/navigation";
 import { CalendarEvent } from "./calendar.types";
 import { useFeatureAccess } from "../../hooks/useFeatureAccess";
 
@@ -22,6 +23,8 @@ export function useAppointmentModal({
 }: UseAppointmentModalProps) {
   const [title, setTitle] = useState("");
   const [patientId, setPatientId] = useState<Id<"patients"> | "">("");
+  const params = useParams();
+  const lang = params?.lang as string | undefined;
   
   const { canUseReminders } = useFeatureAccess();
   const patients = useQuery(api.patients.listByDoctor);
@@ -61,6 +64,7 @@ export function useAppointmentModal({
           appointmentId: selectedEvent._id,
           title,
           patientId: patientId as Id<"patients">,
+          locale: lang,
         });
 
         if (selectedEvent.googleEventId) {
@@ -80,6 +84,8 @@ export function useAppointmentModal({
           end: selectedSlot.end.getTime(),
           status: "scheduled",
           color: "primary",
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          locale: lang,
         });
 
         if (newAppointmentId) {

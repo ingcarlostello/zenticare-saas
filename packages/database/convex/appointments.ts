@@ -56,6 +56,8 @@ export const create = mutation({
     patientId: v.id("patients"),
     status: v.string(),
     color: v.optional(v.string()),
+    timezone: v.optional(v.string()),
+    locale: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -104,6 +106,8 @@ export const update = mutation({
     status: v.optional(v.string()),
     color: v.optional(v.string()),
     googleEventId: v.optional(v.string()),
+    timezone: v.optional(v.string()),
+    locale: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();

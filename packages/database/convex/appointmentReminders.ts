@@ -12,6 +12,8 @@
  * A real email/SMS service can be plugged in later inside `sendReminder`.
  */
 
+import { reminderTranslations } from "./i18n";
+
 import { internalMutation } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
@@ -77,8 +79,97 @@ export const sendReminder = internalMutation({
       return;
     }
 
+    // 1. Fetch Doctor details and setup localization
+    const doctor = await ctx.db
+      .query("users")
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", args.doctorClerkId))
+      .unique();
+    
+    const locale = appointment.locale || "es";
+    const t = reminderTranslations[locale] || reminderTranslations.es;
+    const doctorName = doctor?.name || doctor?.firstName || t.yourDoctor;
+
+    // 2. Format message text context
+    let contextText = t.appointmentTypes.next;
+    if (args.reminderType === "2h_before") {
+      contextText = t.appointmentTypes.today;
+    } else if (args.reminderType === "evening_before") {
+      contextText = t.appointmentTypes.tomorrow;
+    }
+
+    // 3. Format time
+    const appointmentDate = new Date(appointment.start);
+    const timezone = appointment.timezone || "America/Mexico_City";
+    
+    // We can use Intl.DateTimeFormat with the correct locale
+    const formattedTime = new Intl.DateTimeFormat(locale === "es" ? "es-ES" : locale, {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: timezone,
+    }).format(appointmentDate);
+
+    // If we want to include the date as well for 48h_before:
+    let timeString = formattedTime;
+    if (args.reminderType === "48h_before") {
+       const formattedDate = new Intl.DateTimeFormat(locale === "es" ? "es-ES" : locale, {
+         weekday: "long",
+         day: "numeric",
+         month: "long",
+         timeZone: timezone,
+       }).format(appointmentDate);
+       timeString = `${formattedDate} ${t.atConnector} ${formattedTime}`;
+    }
+
+    const patientFirstName = patient.fullName.split(" ")[0];
+
+    const messageText = `${t.greeting} ${patientFirstName}, ${t.reminderPrefix} ${contextText}:
+
+${t.doctorLabel}: ${doctorName}
+
+${t.timeLabel}: ${timeString}
+
+${t.cancelNotice}`;
+
+    // 4. Get or Create conversation
+    let conversation = await ctx.db
+      .query("conversations")
+      .withIndex("by_doctor_and_patient", (q) =>
+        q.eq("doctorClerkId", args.doctorClerkId).eq("patientId", args.patientId)
+      )
+      .unique();
+
+    let conversationId = conversation?._id;
+
+    if (!conversationId) {
+      conversationId = await ctx.db.insert("conversations", {
+        doctorClerkId: args.doctorClerkId,
+        patientId: args.patientId,
+        unreadByDoctor: 0,
+        unreadByPatient: 0,
+      });
+      conversation = await ctx.db.get(conversationId);
+    }
+
+    // 5. Insert Message
+    const now = Date.now();
+    await ctx.db.insert("messages", {
+      conversationId: conversationId!,
+      senderType: "doctor",
+      senderId: args.doctorClerkId,
+      text: messageText,
+    });
+
+    // 6. Update Conversation
+    const previewText = messageText.slice(0, 80).replace(/\n/g, ' ');
+    await ctx.db.patch(conversationId!, {
+      lastMessageText: previewText,
+      lastMessageAt: now,
+      unreadByPatient: (conversation?.unreadByPatient ?? 0) + 1,
+    });
+
     // ── Delivery point ──────────────────────────────────────────────────
-    // Right now we only log to the DB.
+    // Right now we log to the DB and chat.
     // Future: call Resend / SendGrid / Twilio here with patient.email / patient.phone
     console.log(
       `[Reminder] type=${args.reminderType} | patient=${patient.fullName} (${patient.email}) | appointment="${appointment.title}" at ${new Date(appointment.start).toISOString()}`
