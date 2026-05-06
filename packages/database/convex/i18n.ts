@@ -1,0 +1,58 @@
+export const reminderTranslations: Record<string, any> = {
+  es: {
+    greeting: "Hola",
+    reminderPrefix: "te recordamos",
+    appointmentTypes: {
+      next: "tu próxima cita médica",
+      today: "tu cita médica de hoy",
+      tomorrow: "tu cita médica de mañana",
+    },
+    doctorLabel: "Doctor",
+    timeLabel: "Hora",
+    cancelNotice: "Si no puedes asistir, por favor avísanos con antelación.",
+    atConnector: "a las",
+    yourDoctor: "Tu Doctor",
+  },
+  en: {
+    greeting: "Hello",
+    reminderPrefix: "we remind you of",
+    appointmentTypes: {
+      next: "your next medical appointment",
+      today: "your medical appointment today",
+      tomorrow: "your medical appointment tomorrow",
+    },
+    doctorLabel: "Doctor",
+    timeLabel: "Time",
+    cancelNotice: "If you cannot attend, please let us know in advance.",
+    atConnector: "at",
+    yourDoctor: "Your Doctor",
+  },
+  fr: {
+    greeting: "Bonjour",
+    reminderPrefix: "nous vous rappelons",
+    appointmentTypes: {
+      next: "votre prochain rendez-vous médical",
+      today: "votre rendez-vous médical d'aujourd'hui",
+      tomorrow: "votre rendez-vous médical de demain",
+    },
+    doctorLabel: "Docteur",
+    timeLabel: "Heure",
+    cancelNotice: "Si vous ne pouvez pas assister, veuillez nous en informer à l'avance.",
+    atConnector: "à",
+    yourDoctor: "Votre Docteur",
+  },
+  pt: {
+    greeting: "Olá",
+    reminderPrefix: "lembramos você de",
+    appointmentTypes: {
+      next: "sua próxima consulta médica",
+      today: "sua consulta médica de hoje",
+      tomorrow: "sua consulta médica de amanhã",
+    },
+    doctorLabel: "Doutor",
+    timeLabel: "Hora",
+    cancelNotice: "Se você no puder comparecer, por favor nos avise com antecedência.",
+    atConnector: "às",
+    yourDoctor: "Seu Doutor",
+  },
+};

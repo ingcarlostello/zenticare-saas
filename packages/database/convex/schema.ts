@@ -50,6 +50,8 @@ export default defineSchema({
     color: v.optional(v.string()),
     googleEventId: v.optional(v.string()),
     isAllDay: v.optional(v.boolean()),
+    timezone: v.optional(v.string()), // Added for localized reminders
+    locale: v.optional(v.string()),   // Added for localized messages
     // IDs of the 3 scheduled reminder functions — stored so we can cancel them on deletion
     reminderScheduleIds: v.optional(v.array(v.id("_scheduled_functions"))),
   })
