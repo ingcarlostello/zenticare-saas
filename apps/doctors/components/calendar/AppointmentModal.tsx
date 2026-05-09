@@ -19,23 +19,40 @@ export function AppointmentModal({
     patients,
     handleSubmit,
     handleDelete,
+    handleCancel,
     modalRef,
     displayStart,
     displayEnd,
     canUseReminders,
+    canCancel,
+    appointmentStatus,
+    showCancelConfirm,
+    setShowCancelConfirm,
+    cancelReason,
+    setCancelReason,
+    isCancelling,
+    handleCancelConfirm,
+    statusInfo,
   } = useAppointmentModal({
+    dict,
     isOpen,
     onClose,
     selectedSlot,
     selectedEvent,
   });
 
+
   return (
     <dialog ref={modalRef} className="modal" onClose={onClose}>
       <div className="modal-box">
-        <h3 className="font-bold text-lg mb-4">
-          {selectedEvent ? dict.calendar.editEvent : dict.calendar.addEvent}
-        </h3>
+        <div className="flex items-center gap-2 mb-4">
+          <h3 className="font-bold text-lg">
+            {selectedEvent ? dict.calendar.editEvent : dict.calendar.addEvent}
+          </h3>
+          {statusInfo && (
+            <span className={`${statusInfo.className} badge-sm`}>{statusInfo.label}</span>
+          )}
+        </div>
         
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="form-control w-full">
@@ -49,6 +66,7 @@ export function AppointmentModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
+              disabled={appointmentStatus === "cancelled"}
             />
           </div>
 
@@ -61,6 +79,7 @@ export function AppointmentModal({
               value={patientId}
               onChange={(e) => setPatientId(e.target.value as Id<"patients">)}
               required
+              disabled={appointmentStatus === "cancelled"}
             >
               <option value="" disabled>
                 {dict.calendar.selectPatient}
@@ -99,8 +118,48 @@ export function AppointmentModal({
             )
           )}
 
+          {/* Cancel appointment confirmation area */}
+          {showCancelConfirm && (
+            <div className="bg-error/5 border border-error/30 rounded-lg p-4">
+              <p className="text-sm text-error font-medium mb-2">
+                {dict.calendar.cancelAppointmentConfirm ?? "Are you sure you want to cancel? The patient will be notified."}
+              </p>
+              <input
+                type="text"
+                placeholder={dict.calendar.cancelReason ?? "Reason (optional)"}
+                className="input input-bordered input-sm w-full mb-3"
+                value={cancelReason}
+                onChange={(e) => setCancelReason(e.target.value)}
+              />
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  className="btn btn-error btn-sm flex-1"
+                  onClick={handleCancelConfirm}
+                  disabled={isCancelling}
+                >
+                  {isCancelling ? (
+                    <span className="loading loading-spinner loading-xs" />
+                  ) : (
+                    dict.calendar.cancelAppointment ?? "Cancel Appointment"
+                  )}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => {
+                    setShowCancelConfirm(false);
+                    setCancelReason("");
+                  }}
+                >
+                  {dict.calendar.cancel}
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="modal-action flex justify-between items-center">
-            <div>
+            <div className="flex gap-2">
               {selectedEvent && (
                 <button
                   type="button"
@@ -110,12 +169,26 @@ export function AppointmentModal({
                   {dict.calendar.delete}
                 </button>
               )}
+              {/* Cancel appointment button — only for existing appointments with patients, not cancelled */}
+              {selectedEvent && canCancel && !showCancelConfirm && (
+                <button
+                  type="button"
+                  className="btn btn-warning btn-outline btn-sm"
+                  onClick={() => setShowCancelConfirm(true)}
+                >
+                  {dict.calendar.cancelAppointment ?? "Cancel Appointment"}
+                </button>
+              )}
             </div>
             <div className="flex gap-2">
               <button type="button" className="btn btn-ghost" onClick={onClose}>
                 {dict.calendar.cancel}
               </button>
-              <button type="submit" className="btn btn-primary" disabled={!title || !patientId}>
+              <button 
+                type="submit" 
+                className="btn btn-primary" 
+                disabled={!title || !patientId || appointmentStatus === "cancelled"}
+              >
                 {dict.calendar.save}
               </button>
             </div>

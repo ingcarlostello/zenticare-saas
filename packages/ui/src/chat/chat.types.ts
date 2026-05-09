@@ -17,6 +17,12 @@ export interface EnrichedConversation {
 
 // ── Message ───────────────────────────────────────────────────────────────
 
+export interface ReminderAction {
+  actionId: string;
+  label: string;
+  style: string;
+}
+
 export interface EnrichedMessage {
   _id: Id<"messages">;
   _creationTime: number;
@@ -28,6 +34,13 @@ export interface EnrichedMessage {
   attachmentType?: string;
   attachmentName?: string;
   attachmentUrl?: string | null;
+  // Interactive reminder fields (Pro plan)
+  messageType?: string;
+  appointmentId?: Id<"appointments">;
+  reminderActions?: ReminderAction[];
+  reminderResponse?: string;
+  respondedAt?: number;
+  visibility?: "all" | "doctor" | "patient";
 }
 
 // ── Component props ───────────────────────────────────────────────────────
@@ -59,6 +72,12 @@ export interface ChatDict {
   sending: string;
   fileTooLarge: string;
   unsupportedFile: string;
+  // Interactive reminder confirmations (Pro plan)
+  confirmAppointment: string;
+  rescheduleAppointment: string;
+  appointmentConfirmed: string;
+  rescheduleRequested: string;
+  appointmentCancelled: string;
 }
 
 export interface ChatViewProps {
@@ -99,6 +118,9 @@ export interface MessageBubbleProps {
   message: EnrichedMessage;
   dict: { chat: ChatDict };
   currentUserType?: "doctor" | "patient";
+  /** Callback for interactive reminder buttons (patient only) */
+  onRespondToReminder?: (messageId: string, actionId: string) => void;
+  isRespondingToReminder?: boolean;
 }
 
 export interface MessageInputProps {

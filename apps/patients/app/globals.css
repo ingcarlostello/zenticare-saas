@@ -471,6 +471,12 @@
   --noise: 0;
 }
 
-
-
+/* Subtle pulse animation for interactive reminder confirm button */
+@keyframes pulse-subtle {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(76% 0.177 163.223 / 0.4); }
+  50% { box-shadow: 0 0 0 6px oklch(76% 0.177 163.223 / 0); }
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
 

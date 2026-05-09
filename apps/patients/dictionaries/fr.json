@@ -46,6 +46,11 @@
     "downloadFile": "Télécharger",
     "sending": "Envoi en cours...",
     "fileTooLarge": "Le fichier est trop volumineux. La taille maximale est de 10 Mo.",
-    "unsupportedFile": "Type de fichier non pris en charge"
+    "unsupportedFile": "Type de fichier non pris en charge",
+    "confirmAppointment": "Confirmer le rendez-vous",
+    "rescheduleAppointment": "Reprogrammer",
+    "appointmentConfirmed": "Rendez-vous confirmé ✅",
+    "rescheduleRequested": "Reprogrammation demandée 📅",
+    "appointmentCancelled": "Rendez-vous annulé"
   }
 }

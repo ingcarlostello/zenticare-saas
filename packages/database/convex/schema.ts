@@ -39,6 +39,7 @@ export default defineSchema({
     .index("by_doctorClerkId", ["doctorClerkId"])
     .index("by_email_and_doctorClerkId", ["email", "doctorClerkId"]),
 
+  // status: "scheduled" | "confirmed" | "cancelled" | "reschedule_requested"
   appointments: defineTable({
     title: v.string(),
     description: v.optional(v.string()),
@@ -54,6 +55,10 @@ export default defineSchema({
     locale: v.optional(v.string()),   // Added for localized messages
     // IDs of the 3 scheduled reminder functions — stored so we can cancel them on deletion
     reminderScheduleIds: v.optional(v.array(v.id("_scheduled_functions"))),
+    // Confirmation / cancellation tracking (Pro plan only)
+    confirmedAt: v.optional(v.number()),        // timestamp when patient confirmed
+    cancelledAt: v.optional(v.number()),        // timestamp when doctor cancelled
+    cancellationReason: v.optional(v.string()), // optional reason from doctor
   })
     .index("by_doctorClerkId", ["doctorClerkId"])
     .index("by_patientId", ["patientId"])
@@ -100,7 +105,7 @@ export default defineSchema({
     .index("by_patient", ["patientId"]),
 
   // Individual chat messages.
-  // senderType: "doctor" | "patient"
+  // senderType: "doctor" | "patient" | "system"
   // senderId: doctorClerkId (string) when doctor, or patientId (Id<"patients">) when patient
   messages: defineTable({
     conversationId: v.id("conversations"),
@@ -111,6 +116,17 @@ export default defineSchema({
     attachmentStorageId: v.optional(v.id("_storage")),
     attachmentType: v.optional(v.string()),   // "image" | "pdf" | "document"
     attachmentName: v.optional(v.string()),   // original file name
+    // Interactive message support (reminder confirmations — Pro plan)
+    messageType: v.optional(v.string()),         // "text" | "reminder_confirmation" | "system"
+    appointmentId: v.optional(v.id("appointments")), // linked appointment for interactive msgs
+    reminderActions: v.optional(v.array(v.object({
+      actionId: v.string(),   // "confirm" | "reschedule"
+      label: v.string(),      // localized button label
+      style: v.string(),      // "primary" | "ghost" | "outline"
+    }))),
+    reminderResponse: v.optional(v.string()),    // "confirmed" | "reschedule_requested"
+    respondedAt: v.optional(v.number()),         // when the patient tapped a button
+    visibility: v.optional(v.string()),          // "all" | "doctor" | "patient"
   })
     .index("by_conversation", ["conversationId"]),
 });

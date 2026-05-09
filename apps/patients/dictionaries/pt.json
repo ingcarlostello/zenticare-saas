@@ -46,6 +46,11 @@
     "downloadFile": "Baixar",
     "sending": "Enviando...",
     "fileTooLarge": "O arquivo é muito grande. O tamanho máximo é 10 MB.",
-    "unsupportedFile": "Tipo de arquivo não suportado"
+    "unsupportedFile": "Tipo de arquivo não suportado",
+    "confirmAppointment": "Confirmar Consulta",
+    "rescheduleAppointment": "Reagendar",
+    "appointmentConfirmed": "Consulta confirmada ✅",
+    "rescheduleRequested": "Reagendamento solicitado 📅",
+    "appointmentCancelled": "Consulta cancelada"
   }
 }

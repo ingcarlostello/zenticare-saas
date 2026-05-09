@@ -1,6 +1,7 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { getFeatureLimit, hasFeature } from "./plans";
+import { reminderTranslations } from "./i18n";
 
 // ── Queries ────────────────────────────────────────────────────────────────
 
@@ -480,5 +481,154 @@ export const patientGenerateUploadUrl = mutation({
     }
 
     return await ctx.storage.generateUploadUrl();
+  },
+});
+
+// ── Patient Reminder Response ──────────────────────────────────────────────
+
+/** Patient responds to an interactive reminder message (Confirm / Reschedule). */
+export const patientRespondToReminder = mutation({
+  args: {
+    messageId: v.id("messages"),
+    patientId: v.id("patients"),
+    actionId: v.string(), // "confirm" | "reschedule"
+  },
+  handler: async (ctx, args) => {
+    // 1. Validate the message exists and belongs to this patient's conversation
+    const message = await ctx.db.get(args.messageId);
+    if (!message) throw new Error("Message not found");
+
+    const conversation = await ctx.db.get(message.conversationId);
+    if (!conversation || conversation.patientId !== args.patientId) {
+      throw new Error("Unauthorized");
+    }
+
+    // 2. Ensure it's an interactive reminder message
+    if (message.messageType !== "reminder_confirmation") {
+      throw new Error("This message does not support responses");
+    }
+
+    // 3. Check if already responded
+    if (message.reminderResponse) {
+      throw new Error("ALREADY_RESPONDED");
+    }
+
+    // 4. Validate actionId
+    if (args.actionId !== "confirm" && args.actionId !== "reschedule") {
+      throw new Error("Invalid action");
+    }
+
+    // 5. Get the linked appointment
+    if (!message.appointmentId) {
+      throw new Error("No appointment linked to this message");
+    }
+    const appointment = await ctx.db.get(message.appointmentId);
+    if (!appointment) {
+      throw new Error("Appointment not found");
+    }
+
+    // 6. Get patient and locale for response messages
+    const patient = await ctx.db.get(args.patientId);
+    if (!patient) throw new Error("Patient not found");
+
+    const locale = appointment.locale || "es";
+    const t = reminderTranslations[locale] || reminderTranslations.es;
+
+    const now = Date.now();
+
+    // 7. Update the message with the response
+    const responseStatus = args.actionId === "confirm" ? "confirmed" : "reschedule_requested";
+    await ctx.db.patch(args.messageId, {
+      reminderResponse: responseStatus,
+      respondedAt: now,
+    });
+
+    // 8. Update appointment status
+    if (args.actionId === "confirm") {
+      await ctx.db.patch(appointment._id, {
+        status: "confirmed",
+        confirmedAt: now,
+      });
+    } else {
+      await ctx.db.patch(appointment._id, {
+        status: "reschedule_requested",
+      });
+    }
+
+    // 9. Send private system feedback messages
+    if (args.actionId === "confirm") {
+      // Message for Patient
+      await ctx.db.insert("messages", {
+        conversationId: conversation._id,
+        senderType: "system",
+        senderId: "system",
+        text: t.appointmentConfirmed,
+        messageType: "system",
+        visibility: "patient",
+      });
+
+      // Message for Doctor
+      const patientFirstName = patient.fullName.split(" ")[0];
+      const doctorConfirmText = t.confirmNotifyDoctor.replace("{patientName}", patientFirstName);
+      await ctx.db.insert("messages", {
+        conversationId: conversation._id,
+        senderType: "system",
+        senderId: "system",
+        text: doctorConfirmText,
+        messageType: "system",
+        visibility: "doctor",
+      });
+
+      // Update conversation last message (use doctor text as it's more descriptive for the list)
+      await ctx.db.patch(conversation._id, {
+        lastMessageText: doctorConfirmText.slice(0, 80),
+        lastMessageAt: now,
+      });
+    } else {
+      // actionId === "reschedule"
+      
+      // Message for Patient
+      await ctx.db.insert("messages", {
+        conversationId: conversation._id,
+        senderType: "system",
+        senderId: "system",
+        text: t.rescheduleRequested,
+        messageType: "system",
+        visibility: "patient",
+      });
+
+      // Message for Doctor
+      const timezone = appointment.timezone || "America/Mexico_City";
+      const formattedDate = new Intl.DateTimeFormat(locale === "es" ? "es-ES" : locale, {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+        timeZone: timezone,
+      }).format(new Date(appointment.start));
+
+      const patientFirstName = patient.fullName.split(" ")[0];
+      const doctorNotification = `📅 ${patientFirstName} ${t.rescheduleNotifyDoctor} ${formattedDate}.`;
+
+      await ctx.db.insert("messages", {
+        conversationId: conversation._id,
+        senderType: "system",
+        senderId: "system", // Changed from args.patientId to "system" for consistency
+        text: doctorNotification,
+        messageType: "system",
+        visibility: "doctor",
+      });
+
+      // Update conversation for the doctor (and increment unread)
+      await ctx.db.patch(conversation._id, {
+        lastMessageText: doctorNotification.slice(0, 80),
+        lastMessageAt: now,
+        unreadByDoctor: (conversation.unreadByDoctor ?? 0) + 1,
+      });
+    }
+
+    return { success: true, response: responseStatus };
   },
 });
