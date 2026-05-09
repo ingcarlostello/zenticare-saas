@@ -10,6 +10,11 @@
  *
  * The actual delivery is recorded in the `reminders_log` table.
  * A real email/SMS service can be plugged in later inside `sendReminder`.
+ *
+ * Interactive behaviour (Pro plan):
+ *  - The 48h reminder includes confirmation buttons (Confirm / Reschedule).
+ *  - If the patient confirms, subsequent reminders are sent WITHOUT buttons.
+ *  - If the appointment is cancelled, remaining reminders are NOT sent.
  */
 
 import { reminderTranslations } from "./i18n";
@@ -71,6 +76,13 @@ export const sendReminder = internalMutation({
       return;
     }
 
+    // Don't send reminders for cancelled appointments
+    if (appointment.status === "cancelled") {
+      const log = await ctx.db.get(args.reminderLogId);
+      if (log) await ctx.db.patch(args.reminderLogId, { status: "canceled" });
+      return;
+    }
+
     // Verify the patient still exists
     const patient = await ctx.db.get(args.patientId);
     if (!patient) {
@@ -122,16 +134,47 @@ export const sendReminder = internalMutation({
     }
 
     const patientFirstName = patient.fullName.split(" ")[0];
+    const isConfirmed = appointment.status === "confirmed";
 
-    const messageText = `${t.greeting} ${patientFirstName}, ${t.reminderPrefix} ${contextText}:
+    // Build the message text
+    let messageText: string;
+    if (args.reminderType !== "48h_before" && isConfirmed) {
+      // Subsequent reminders for confirmed appointments — friendlier tone, no action needed
+      messageText = `${t.greeting} ${patientFirstName}, ${t.confirmedReminder}
+
+${t.doctorLabel}: ${doctorName}
+
+${t.timeLabel}: ${timeString}`;
+    } else {
+      // Standard reminder text (48h or non-confirmed)
+      messageText = `${t.greeting} ${patientFirstName}, ${t.reminderPrefix} ${contextText}:
 
 ${t.doctorLabel}: ${doctorName}
 
 ${t.timeLabel}: ${timeString}
 
 ${t.cancelNotice}`;
+    }
 
-    // 4. Get or Create conversation
+    // 4. Determine if we should include interactive buttons
+    // Only the 48h_before reminder includes confirmation buttons,
+    // and only if the appointment hasn't already been confirmed/cancelled
+    const shouldIncludeButtons =
+      args.reminderType === "48h_before" &&
+      appointment.status === "scheduled";
+
+    const reminderActions = shouldIncludeButtons
+      ? [
+          { actionId: "confirm", label: t.confirmButton, style: "primary" },
+          { actionId: "reschedule", label: t.rescheduleButton, style: "ghost" },
+        ]
+      : undefined;
+
+    const messageType = shouldIncludeButtons
+      ? "reminder_confirmation"
+      : "text";
+
+    // 5. Get or Create conversation
     let conversation = await ctx.db
       .query("conversations")
       .withIndex("by_doctor_and_patient", (q) =>
@@ -151,16 +194,19 @@ ${t.cancelNotice}`;
       conversation = await ctx.db.get(conversationId);
     }
 
-    // 5. Insert Message
+    // 6. Insert Message with interactive fields
     const now = Date.now();
     await ctx.db.insert("messages", {
       conversationId: conversationId!,
       senderType: "doctor",
       senderId: args.doctorClerkId,
       text: messageText,
+      messageType,
+      appointmentId: args.appointmentId,
+      reminderActions,
     });
 
-    // 6. Update Conversation
+    // 7. Update Conversation
     const previewText = messageText.slice(0, 80).replace(/\n/g, ' ');
     await ctx.db.patch(conversationId!, {
       lastMessageText: previewText,
@@ -172,7 +218,7 @@ ${t.cancelNotice}`;
     // Right now we log to the DB and chat.
     // Future: call Resend / SendGrid / Twilio here with patient.email / patient.phone
     console.log(
-      `[Reminder] type=${args.reminderType} | patient=${patient.fullName} (${patient.email}) | appointment="${appointment.title}" at ${new Date(appointment.start).toISOString()}`
+      `[Reminder] type=${args.reminderType} | patient=${patient.fullName} (${patient.email}) | appointment="${appointment.title}" at ${new Date(appointment.start).toISOString()} | buttons=${shouldIncludeButtons}`
     );
 
     // Mark the log entry as fired

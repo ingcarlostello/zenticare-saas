@@ -70,7 +70,15 @@
     "eventDeleted": "Evento eliminado exitosamente",
     "openGoogleCalendar": "Abrir en Google Calendar",
     "remindersWillBeSent": "Se enviarán 3 recordatorios al paciente",
-    "remindersProOnly": "Recordatorios de citas disponibles en el plan Pro"
+    "remindersProOnly": "Recordatorios de citas disponibles en el plan Pro",
+    "cancelAppointment": "Cancelar Cita",
+    "cancelAppointmentConfirm": "¿Estás seguro de que deseas cancelar esta cita? El paciente será notificado.",
+    "cancelReason": "Motivo (opcional)",
+    "appointmentCancelled": "Cita cancelada exitosamente",
+    "statusConfirmed": "Confirmada",
+    "statusCancelled": "Cancelada",
+    "statusRescheduleRequested": "Reagendamiento solicitado",
+    "statusScheduled": "Programada"
   },
   "patients": {
     "title": "Pacientes",
@@ -165,6 +173,11 @@
     "downloadFile": "Descargar",
     "sending": "Enviando...",
     "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 10 MB.",
-    "unsupportedFile": "Tipo de archivo no soportado"
+    "unsupportedFile": "Tipo de archivo no soportado",
+    "confirmAppointment": "Confirmar Cita",
+    "rescheduleAppointment": "Reagendar",
+    "appointmentConfirmed": "Cita confirmada ✅",
+    "rescheduleRequested": "Reagendamiento solicitado 📅",
+    "appointmentCancelled": "Cita cancelada"
   }
 }

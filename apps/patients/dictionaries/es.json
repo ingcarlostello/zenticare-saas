@@ -46,6 +46,11 @@
     "downloadFile": "Descargar",
     "sending": "Enviando...",
     "fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 10 MB.",
-    "unsupportedFile": "Tipo de archivo no soportado"
+    "unsupportedFile": "Tipo de archivo no soportado",
+    "confirmAppointment": "Confirmar Cita",
+    "rescheduleAppointment": "Reagendar",
+    "appointmentConfirmed": "Cita confirmada ✅",
+    "rescheduleRequested": "Reagendamiento solicitado 📅",
+    "appointmentCancelled": "Cita cancelada"
   }
 }

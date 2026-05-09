@@ -46,6 +46,11 @@
     "downloadFile": "Download",
     "sending": "Sending...",
     "fileTooLarge": "File is too large. Maximum size is 10 MB.",
-    "unsupportedFile": "Unsupported file type"
+    "unsupportedFile": "Unsupported file type",
+    "confirmAppointment": "Confirm Appointment",
+    "rescheduleAppointment": "Reschedule",
+    "appointmentConfirmed": "Appointment confirmed ✅",
+    "rescheduleRequested": "Reschedule requested 📅",
+    "appointmentCancelled": "Appointment cancelled"
   }
 }

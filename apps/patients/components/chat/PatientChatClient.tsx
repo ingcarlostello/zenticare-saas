@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { MessageBubble, MessageInput, getInitials } from "@repo/ui/chat";
 import { usePatientMessages } from "./usePatientMessages";
+import { useMutation } from "convex/react";
+import { api } from "@repo/database/convex/_generated/api";
 import type { Id } from "@repo/database/convex/_generated/dataModel";
 
 export function PatientChatClient({ 
@@ -28,6 +31,30 @@ export function PatientChatClient({
     scrollRef,
     conversation,
   } = usePatientMessages(patientId as Id<"patients">);
+
+  const respondToReminder = useMutation(api.chat.patientRespondToReminder);
+  const [respondingMessageId, setRespondingMessageId] = useState<string | null>(null);
+
+  const handleRespondToReminder = async (messageId: string, actionId: string) => {
+    try {
+      setRespondingMessageId(messageId);
+      await respondToReminder({
+        messageId: messageId as Id<"messages">,
+        patientId: patientId as Id<"patients">,
+        actionId,
+      });
+    } catch (err) {
+      console.error("Failed to respond to reminder:", err);
+      const msg = (err as Error).message || "";
+      if (msg.includes("ALREADY_RESPONDED")) {
+        // Silently ignore — the UI will update via subscription
+      } else {
+        setError("FAILED_TO_SEND");
+      }
+    } finally {
+      setRespondingMessageId(null);
+    }
+  };
 
   const doctorName = conversation?.doctorName ?? dict.chat?.doctor ?? "Doctor";
   const initials = getInitials(doctorName);
@@ -67,7 +94,14 @@ export function PatientChatClient({
         ) : (
           <div className="flex flex-col gap-1 mt-auto">
             {messages.map((msg) => (
-              <MessageBubble key={msg._id} message={msg} dict={dict} currentUserType="patient" />
+              <MessageBubble
+                key={msg._id}
+                message={msg}
+                dict={dict}
+                currentUserType="patient"
+                onRespondToReminder={handleRespondToReminder}
+                isRespondingToReminder={respondingMessageId === msg._id}
+              />
             ))}
           </div>
         )}

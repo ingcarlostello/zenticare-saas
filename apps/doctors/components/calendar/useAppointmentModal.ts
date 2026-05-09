@@ -9,6 +9,7 @@ import { CalendarEvent } from "./calendar.types";
 import { useFeatureAccess } from "../../hooks/useFeatureAccess";
 
 interface UseAppointmentModalProps {
+  dict: any;
   isOpen: boolean;
   onClose: () => void;
   selectedSlot: { start: Date; end: Date } | null;
@@ -16,6 +17,7 @@ interface UseAppointmentModalProps {
 }
 
 export function useAppointmentModal({
+  dict,
   isOpen,
   onClose,
   selectedSlot,
@@ -23,6 +25,9 @@ export function useAppointmentModal({
 }: UseAppointmentModalProps) {
   const [title, setTitle] = useState("");
   const [patientId, setPatientId] = useState<Id<"patients"> | "">("");
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [cancelReason, setCancelReason] = useState("");
+  const [isCancelling, setIsCancelling] = useState(false);
   const params = useParams();
   const lang = params?.lang as string | undefined;
   
@@ -31,6 +36,7 @@ export function useAppointmentModal({
   const createAppointment = useMutation(api.appointments.create);
   const updateAppointment = useMutation(api.appointments.update);
   const removeAppointment = useMutation(api.appointments.remove);
+  const cancelAppointmentMutation = useMutation(api.appointments.cancelAppointment);
   
   const createGoogleEvent = useAction(api.googleCalendarActions.createEvent);
   const updateGoogleEvent = useAction(api.googleCalendarActions.updateEvent);
@@ -50,6 +56,9 @@ export function useAppointmentModal({
       modalRef.current?.showModal();
     } else {
       modalRef.current?.close();
+      setShowCancelConfirm(false);
+      setCancelReason("");
+      setIsCancelling(false);
     }
   }, [isOpen, selectedEvent]);
 
@@ -123,8 +132,57 @@ export function useAppointmentModal({
     }
   };
 
+  const handleCancel = async (reason?: string) => {
+    if (!selectedEvent?._id) return;
+    
+    try {
+      await cancelAppointmentMutation({
+        appointmentId: selectedEvent._id,
+        reason: reason || undefined,
+      });
+      onClose();
+    } catch (error) {
+      console.error("Failed to cancel appointment", error);
+    }
+  };
+
+  const handleCancelConfirm = async () => {
+    setIsCancelling(true);
+    await handleCancel(cancelReason);
+    setIsCancelling(false);
+    setShowCancelConfirm(false);
+    setCancelReason("");
+  };
+
   const displayStart = selectedEvent ? selectedEvent.start : selectedSlot?.start;
   const displayEnd = selectedEvent ? selectedEvent.end : selectedSlot?.end;
+
+  // Determine if the appointment can be cancelled (has patient, not already cancelled)
+  const canCancel = selectedEvent?.patientId && 
+    selectedEvent?.status !== "cancelled";
+
+  const appointmentStatus = selectedEvent?.status;
+
+  const statusInfo = (() => {
+    if (!selectedEvent || !appointmentStatus || appointmentStatus === "scheduled") return null;
+
+    const statusConfig: Record<string, { label: string; className: string }> = {
+      confirmed: {
+        label: dict.calendar.statusConfirmed ?? "Confirmed",
+        className: "badge badge-success",
+      },
+      cancelled: {
+        label: dict.calendar.statusCancelled ?? "Cancelled",
+        className: "badge badge-error",
+      },
+      reschedule_requested: {
+        label: dict.calendar.statusRescheduleRequested ?? "Reschedule requested",
+        className: "badge badge-warning",
+      },
+    };
+
+    return statusConfig[appointmentStatus] || null;
+  })();
 
   return {
     title,
@@ -134,10 +192,20 @@ export function useAppointmentModal({
     patients,
     handleSubmit,
     handleDelete,
+    handleCancel,
+    handleCancelConfirm,
+    showCancelConfirm,
+    setShowCancelConfirm,
+    cancelReason,
+    setCancelReason,
+    isCancelling,
     modalRef,
     displayStart,
     displayEnd,
     isSubmitting: false,
     canUseReminders,
+    canCancel,
+    appointmentStatus,
+    statusInfo,
   };
 }
