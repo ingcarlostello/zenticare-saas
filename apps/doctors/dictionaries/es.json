@@ -189,6 +189,7 @@
     "dailySlotsAvg": "Citas Diarias (Prom)",
     "totalBreaks": "Descansos Configurados",
     "appointmentDuration": "Duración de la Cita",
+    "minuteAbbreviation": "min",
     "weeklyAvailability": "Disponibilidad Semanal",
     "patientView": "Vista del Paciente",
     "patientViewDesc": "Vista previa de los horarios disponibles que verán los pacientes",
@@ -201,6 +202,8 @@
     "slotsAvailable": "{count} espacios disponibles",
     "breakCount_one": "1 descanso",
     "breakCount_other": "{count} descansos",
+    "noSlotsAvailable": "No hay espacios disponibles con la configuración actual.",
+    "breakLabel": "Descanso",
     "days": {
       "monday": "Lunes",
       "tuesday": "Martes",
