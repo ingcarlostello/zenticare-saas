@@ -189,6 +189,7 @@
     "dailySlotsAvg": "Daily Slots (Avg)",
     "totalBreaks": "Total Breaks Configured",
     "appointmentDuration": "Appointment Duration",
+    "minuteAbbreviation": "min",
     "weeklyAvailability": "Weekly Availability",
     "patientView": "Patient View",
     "patientViewDesc": "Preview of the available slots that patients will see",
@@ -201,6 +202,8 @@
     "slotsAvailable": "{count} slots available",
     "breakCount_one": "1 break",
     "breakCount_other": "{count} breaks",
+    "noSlotsAvailable": "No slots available with current settings.",
+    "breakLabel": "Break",
     "days": {
       "monday": "Monday",
       "tuesday": "Tuesday",
