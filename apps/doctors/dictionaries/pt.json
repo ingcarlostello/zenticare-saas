@@ -32,6 +32,7 @@
     "profile": "Perfil",
     "patients": "Pacientes",
     "settings": "Configurações",
+    "schedule": "Disponibilidade",
     "chat": "Bate-papo",
     "calendar": "Calendário",
     "planFreeLabel": "Plano gratuito",
@@ -179,5 +180,35 @@
     "appointmentConfirmed": "Consulta confirmada ✅",
     "rescheduleRequested": "Reagendamento solicitado 📅",
     "appointmentCancelled": "Consulta cancelada"
+  },
+  "schedule": {
+    "title": "Configuração da Agenda",
+    "description": "Gerencie sua disponibilidade para gerar dinamicamente horários reserváveis para os pacientes.",
+    "workingDays": "Dias Úteis",
+    "slotDuration": "Duração do Horário",
+    "dailySlotsAvg": "Horários Diários (Média)",
+    "totalBreaks": "Pausas Configuradas",
+    "appointmentDuration": "Duração da Consulta",
+    "weeklyAvailability": "Disponibilidade Semanal",
+    "patientView": "Visão do Paciente",
+    "patientViewDesc": "Prévia dos horários disponíveis que os pacientes verão",
+    "addBreak": "+ Adicionar pausa",
+    "breakName": "Nome da pausa (ex. Almoço)",
+    "save": "Salvar Agenda",
+    "saveSuccess": "Agenda salva com sucesso",
+    "saveError": "Erro ao salvar a agenda",
+    "dayOff": "Dia de folga",
+    "slotsAvailable": "{count} horários disponíveis",
+    "breakCount_one": "1 pausa",
+    "breakCount_other": "{count} pausas",
+    "days": {
+      "monday": "Segunda-feira",
+      "tuesday": "Terça-feira",
+      "wednesday": "Quarta-feira",
+      "thursday": "Quinta-feira",
+      "friday": "Sexta-feira",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    }
   }
 }

@@ -32,6 +32,7 @@
     "profile": "Profil",
     "patients": "Patients",
     "settings": "Paramètres",
+    "schedule": "Disponibilité",
     "chat": "Discuter",
     "calendar": "Calendrier",
     "planFreeLabel": "Plan gratuit",
@@ -179,5 +180,35 @@
     "appointmentConfirmed": "Rendez-vous confirmé ✅",
     "rescheduleRequested": "Reprogrammation demandée 📅",
     "appointmentCancelled": "Rendez-vous annulé"
+  },
+  "schedule": {
+    "title": "Configuration de l'agenda",
+    "description": "Gérez votre disponibilité pour générer dynamiquement des créneaux pour les patients.",
+    "workingDays": "Jours de travail",
+    "slotDuration": "Durée du créneau",
+    "dailySlotsAvg": "Créneaux quotidiens (Moy)",
+    "totalBreaks": "Pauses configurées",
+    "appointmentDuration": "Durée du rendez-vous",
+    "weeklyAvailability": "Disponibilité hebdomadaire",
+    "patientView": "Vue du patient",
+    "patientViewDesc": "Aperçu des créneaux disponibles que les patients verront",
+    "addBreak": "+ Ajouter une pause",
+    "breakName": "Nom de la pause (ex. Déjeuner)",
+    "save": "Enregistrer l'agenda",
+    "saveSuccess": "Agenda enregistré avec succès",
+    "saveError": "Erreur lors de l'enregistrement de l'agenda",
+    "dayOff": "Jour de congé",
+    "slotsAvailable": "{count} créneaux disponibles",
+    "breakCount_one": "1 pause",
+    "breakCount_other": "{count} pauses",
+    "days": {
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi",
+      "sunday": "Dimanche"
+    }
   }
 }

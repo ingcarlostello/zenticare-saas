@@ -9,6 +9,7 @@ import { CalendarEvent } from "./calendar.types";
 import { useFeatureAccess } from "../../hooks/useFeatureAccess";
 
 interface UseAppointmentModalProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dict: any;
   isOpen: boolean;
   onClose: () => void;

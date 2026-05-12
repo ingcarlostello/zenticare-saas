@@ -13,6 +13,7 @@ import {
   PanelRightOpen,
   Sparkles,
   Crown,
+  Clock,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -22,6 +23,7 @@ interface SidebarProps {
       calendar: string;
       patients: string;
       chat: string;
+      schedule: string;
       settings: string;
       billing?: string;
       planTooltipPro: string;
@@ -137,6 +139,19 @@ export function Sidebar({ dict, lang, showAsPro }: SidebarProps) {
                     className="h-2 w-2 shrink-0 rounded-full bg-error animate-heartbeat motion-reduce:animate-none"
                   />
                 )}
+              </span>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              href={`/${lang}/dashboard/schedule`}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip={dict.sidebar.schedule}
+            >
+              <Clock />
+              <span className="is-drawer-close:hidden ml-2">
+                {dict.sidebar.schedule}
               </span>
             </Link>
           </li>

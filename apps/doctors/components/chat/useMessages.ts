@@ -31,7 +31,7 @@ export function useMessages(conversationId: Id<"conversations"> | null) {
 
   const isLoading = raw === undefined;
   // Reverse to show oldest first (query returns desc order)
-  const messages: EnrichedMessage[] = raw ? [...raw].reverse() : [];
+  const messages: EnrichedMessage[] = raw ? ([...raw].reverse() as EnrichedMessage[]) : [];
 
   // Auto-scroll on new messages
   useEffect(() => {

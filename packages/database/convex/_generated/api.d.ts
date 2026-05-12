@@ -24,6 +24,7 @@ import type * as paddle from "../paddle.js";
 import type * as paddle_routes from "../paddle_routes.js";
 import type * as patients from "../patients.js";
 import type * as plans from "../plans.js";
+import type * as schedules from "../schedules.js";
 import type * as users from "../users.js";
 
 import type {
@@ -49,6 +50,7 @@ declare const fullApi: ApiFromModules<{
   paddle_routes: typeof paddle_routes;
   patients: typeof patients;
   plans: typeof plans;
+  schedules: typeof schedules;
   users: typeof users;
 }>;
 

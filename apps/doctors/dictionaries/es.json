@@ -32,6 +32,7 @@
     "profile": "Perfil",
     "patients": "Pacientes",
     "settings": "Ajustes",
+    "schedule": "Disponibilidad",
     "chat": "Chat",
     "calendar": "Calendario",
     "planFreeLabel": "Plan gratuito",
@@ -179,5 +180,35 @@
     "appointmentConfirmed": "Cita confirmada ✅",
     "rescheduleRequested": "Reagendamiento solicitado 📅",
     "appointmentCancelled": "Cita cancelada"
+  },
+  "schedule": {
+    "title": "Configuración de Agenda",
+    "description": "Gestiona tu disponibilidad para generar dinámicamente espacios reservables para los pacientes.",
+    "workingDays": "Días Laborales",
+    "slotDuration": "Duración de Cita",
+    "dailySlotsAvg": "Citas Diarias (Prom)",
+    "totalBreaks": "Descansos Configurados",
+    "appointmentDuration": "Duración de la Cita",
+    "weeklyAvailability": "Disponibilidad Semanal",
+    "patientView": "Vista del Paciente",
+    "patientViewDesc": "Vista previa de los horarios disponibles que verán los pacientes",
+    "addBreak": "+ Añadir descanso",
+    "breakName": "Nombre del descanso (ej. Almuerzo)",
+    "save": "Guardar Agenda",
+    "saveSuccess": "Agenda guardada exitosamente",
+    "saveError": "Error al guardar la agenda",
+    "dayOff": "Día libre",
+    "slotsAvailable": "{count} espacios disponibles",
+    "breakCount_one": "1 descanso",
+    "breakCount_other": "{count} descansos",
+    "days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    }
   }
 }

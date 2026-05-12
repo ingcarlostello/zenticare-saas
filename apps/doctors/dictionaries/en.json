@@ -32,6 +32,7 @@
     "profile": "Profile",
     "patients": "Patients",
     "settings": "Settings",
+    "schedule": "Schedule",
     "chat": "Chat",
     "calendar": "Calendar",
     "planFreeLabel": "Free plan",
@@ -179,5 +180,35 @@
     "appointmentConfirmed": "Appointment confirmed ✅",
     "rescheduleRequested": "Reschedule requested 📅",
     "appointmentCancelled": "Appointment cancelled"
+  },
+  "schedule": {
+    "title": "Schedule Configuration",
+    "description": "Manage your availability to dynamically generate bookable slots for patients.",
+    "workingDays": "Working Days",
+    "slotDuration": "Slot Duration",
+    "dailySlotsAvg": "Daily Slots (Avg)",
+    "totalBreaks": "Total Breaks Configured",
+    "appointmentDuration": "Appointment Duration",
+    "weeklyAvailability": "Weekly Availability",
+    "patientView": "Patient View",
+    "patientViewDesc": "Preview of the available slots that patients will see",
+    "addBreak": "+ Add break",
+    "breakName": "Break name (e.g. Lunch)",
+    "save": "Save Schedule",
+    "saveSuccess": "Schedule saved successfully",
+    "saveError": "Failed to save schedule",
+    "dayOff": "Day off",
+    "slotsAvailable": "{count} slots available",
+    "breakCount_one": "1 break",
+    "breakCount_other": "{count} breaks",
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    }
   }
 }
