@@ -87,6 +87,26 @@ export default defineSchema({
     tokenExpiry: v.number(), // timestamp ms
   }).index("by_doctor", ["doctorId"]),
 
+  schedules: defineTable({
+    doctorClerkId: v.string(),
+    appointmentDuration: v.number(), // in minutes
+    weeklyAvailability: v.array(
+      v.object({
+        day: v.string(), // "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"
+        isActive: v.boolean(),
+        startTime: v.string(), // "HH:MM"
+        endTime: v.string(), // "HH:MM"
+        breaks: v.array(
+          v.object({
+            name: v.string(),
+            startTime: v.string(), // "HH:MM"
+            endTime: v.string(), // "HH:MM"
+          })
+        ),
+      })
+    ),
+  }).index("by_doctorClerkId", ["doctorClerkId"]),
+
   // ── Chat ────────────────────────────────────────────────────────────────
   // One conversation per doctor-patient pair.
   // Denormalized last-message fields power the conversation list without

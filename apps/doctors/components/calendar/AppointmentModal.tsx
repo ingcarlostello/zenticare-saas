@@ -19,7 +19,6 @@ export function AppointmentModal({
     patients,
     handleSubmit,
     handleDelete,
-    handleCancel,
     modalRef,
     displayStart,
     displayEnd,
