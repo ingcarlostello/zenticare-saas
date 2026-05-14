@@ -56,13 +56,16 @@ export const listMessages = query({
 
     const limit = args.limit ?? 50;
 
-    const messages = await ctx.db
+    let messages = await ctx.db
       .query("messages")
       .withIndex("by_conversation", (q) =>
         q.eq("conversationId", args.conversationId)
       )
       .order("desc")
-      .take(limit);
+      .take(limit * 2);
+
+    // Filter out messages not meant for the doctor
+    messages = messages.filter(m => m.visibility !== "patient").slice(0, limit);
 
     // Resolve attachment URLs
     const enriched = await Promise.all(
@@ -344,13 +347,16 @@ export const patientListMessages = query({
 
     const limit = args.limit ?? 50;
 
-    const messages = await ctx.db
+    let messages = await ctx.db
       .query("messages")
       .withIndex("by_conversation", (q) =>
         q.eq("conversationId", args.conversationId)
       )
       .order("desc")
-      .take(limit);
+      .take(limit * 2); // fetch more to account for filtering
+
+    // Filter out messages not meant for the patient
+    messages = messages.filter(m => m.visibility !== "doctor").slice(0, limit);
 
     // Resolve attachment URLs
     const enriched = await Promise.all(

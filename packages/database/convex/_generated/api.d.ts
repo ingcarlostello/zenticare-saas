@@ -22,6 +22,7 @@ import type * as lib_featureAccess from "../lib/featureAccess.js";
 import type * as lib_googleApiParser from "../lib/googleApiParser.js";
 import type * as paddle from "../paddle.js";
 import type * as paddle_routes from "../paddle_routes.js";
+import type * as patientPortal from "../patientPortal.js";
 import type * as patients from "../patients.js";
 import type * as plans from "../plans.js";
 import type * as schedules from "../schedules.js";
@@ -48,6 +49,7 @@ declare const fullApi: ApiFromModules<{
   "lib/googleApiParser": typeof lib_googleApiParser;
   paddle: typeof paddle;
   paddle_routes: typeof paddle_routes;
+  patientPortal: typeof patientPortal;
   patients: typeof patients;
   plans: typeof plans;
   schedules: typeof schedules;

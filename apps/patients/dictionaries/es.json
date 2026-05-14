@@ -20,6 +20,59 @@
       "scheduled_reminders": "Recordatorios Automáticos"
     }
   },
+  "sidebar": {
+    "home": "Inicio",
+    "appointments": "Mis Citas",
+    "chat": "Chat",
+    "profile": "Perfil"
+  },
+  "home": {
+    "greeting": "Hola, {name} 👋",
+    "subtitle": "Tu salud, al día, todo en un solo lugar.",
+    "quickAppointments": "Mis Citas",
+    "quickChat": "Chat",
+    "upcomingTitle": "Próximas Citas",
+    "viewAll": "Ver todas →",
+    "noUpcoming": "No hay citas próximas"
+  },
+  "appointments": {
+    "title": "Mis Citas",
+    "subtitle": "Gestiona tus citas médicas",
+    "newAppointment": "Nueva Cita",
+    "upcoming": "Próximas",
+    "history": "Historial",
+    "statusConfirmed": "Confirmada",
+    "statusScheduled": "Programada",
+    "statusCancelled": "Cancelada",
+    "statusRescheduleRequested": "Reagendamiento Solicitado",
+    "videoCall": "Videollamada",
+    "noAppointments": "No hay citas para mostrar"
+  },
+  "profile": {
+    "title": "Mi Perfil",
+    "subtitle": "Gestiona tu información personal",
+    "personalInfo": "Información Personal",
+    "fullName": "Nombre completo",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "dateOfBirth": "Fecha de nacimiento",
+    "address": "Dirección",
+    "medicalInfo": "Información Médica",
+    "bloodType": "Tipo de sangre",
+    "allergies": "Alergias",
+    "addAllergy": "Agregar alergia...",
+    "insurance": "Seguro Médico",
+    "insuranceProvider": "Proveedor de seguro",
+    "policyNumber": "Número de póliza",
+    "emergencyContact": "Contacto de Emergencia",
+    "contactName": "Nombre",
+    "contactPhone": "Teléfono",
+    "contactRelationship": "Relación",
+    "saveChanges": "Guardar Cambios",
+    "saving": "Guardando...",
+    "saved": "Cambios guardados exitosamente",
+    "notFound": "Perfil no encontrado. Contacta a tu doctor."
+  },
   "chat": {
     "title": "Chat",
     "searchPlaceholder": "Buscar conversaciones...",

@@ -20,6 +20,59 @@
       "scheduled_reminders": "Rappels Automatiques"
     }
   },
+  "sidebar": {
+    "home": "Accueil",
+    "appointments": "Mes Rendez-vous",
+    "chat": "Messagerie",
+    "profile": "Profil"
+  },
+  "home": {
+    "greeting": "Bonjour, {name} 👋",
+    "subtitle": "Votre santé, à jour, tout en un seul endroit.",
+    "quickAppointments": "Mes Rendez-vous",
+    "quickChat": "Messagerie",
+    "upcomingTitle": "Prochains Rendez-vous",
+    "viewAll": "Voir tous →",
+    "noUpcoming": "Aucun rendez-vous à venir"
+  },
+  "appointments": {
+    "title": "Mes Rendez-vous",
+    "subtitle": "Gérez vos rendez-vous médicaux",
+    "newAppointment": "Nouveau Rendez-vous",
+    "upcoming": "À venir",
+    "history": "Historique",
+    "statusConfirmed": "Confirmé",
+    "statusScheduled": "Planifié",
+    "statusCancelled": "Annulé",
+    "statusRescheduleRequested": "Report Demandé",
+    "videoCall": "Appel vidéo",
+    "noAppointments": "Aucun rendez-vous à afficher"
+  },
+  "profile": {
+    "title": "Mon Profil",
+    "subtitle": "Gérez vos informations personnelles",
+    "personalInfo": "Informations Personnelles",
+    "fullName": "Nom complet",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "dateOfBirth": "Date de naissance",
+    "address": "Adresse",
+    "medicalInfo": "Informations Médicales",
+    "bloodType": "Groupe sanguin",
+    "allergies": "Allergies",
+    "addAllergy": "Ajouter une allergie...",
+    "insurance": "Assurance Maladie",
+    "insuranceProvider": "Fournisseur d'assurance",
+    "policyNumber": "Numéro de police",
+    "emergencyContact": "Contact d'Urgence",
+    "contactName": "Nom",
+    "contactPhone": "Téléphone",
+    "contactRelationship": "Relation",
+    "saveChanges": "Enregistrer",
+    "saving": "Enregistrement...",
+    "saved": "Modifications enregistrées avec succès",
+    "notFound": "Profil introuvable. Veuillez contacter votre médecin."
+  },
   "chat": {
     "title": "Discussions",
     "searchPlaceholder": "Rechercher des conversations...",

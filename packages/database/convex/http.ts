@@ -45,17 +45,27 @@ http.route({
     const eventType = evt.type;
 
     if (eventType === "user.created") {
-      const { id, email_addresses, first_name, last_name } = evt.data;
+      const { id, email_addresses, first_name, last_name, unsafe_metadata } = evt.data;
       const email = email_addresses?.[0]?.email_address;
       const name = `${first_name ?? ""} ${last_name ?? ""}`.trim();
 
-      await ctx.runMutation(internal.users.createUser, {
-        clerkId: id,
-        email: email ?? "",
-        firstName: first_name ?? undefined,
-        lastName: last_name ?? undefined,
-        name: name || (email ?? "Unknown User"),
-      });
+      if (unsafe_metadata?.role === "patient") {
+        // Patient registration → link to existing patient record by email
+        await ctx.runMutation(internal.patients.linkPatientClerkId, {
+          clerkId: id,
+          email: email ?? "",
+          fullName: name || (email ?? "Unknown"),
+        });
+      } else {
+        // Doctor registration → create in users table (existing behavior)
+        await ctx.runMutation(internal.users.createUser, {
+          clerkId: id,
+          email: email ?? "",
+          firstName: first_name ?? undefined,
+          lastName: last_name ?? undefined,
+          name: name || (email ?? "Unknown User"),
+        });
+      }
     }
 
     if (eventType === "user.updated") {
@@ -63,6 +73,7 @@ http.route({
       const email = email_addresses?.[0]?.email_address;
       const name = `${first_name ?? ""} ${last_name ?? ""}`.trim();
 
+      // Try both tables — only one will match, the other is a no-op
       await ctx.runMutation(internal.users.updateUser, {
         clerkId: id,
         email: email ?? "",
@@ -70,11 +81,18 @@ http.route({
         lastName: last_name ?? undefined,
         name: name || (email ?? "Unknown User"),
       });
+      await ctx.runMutation(internal.patients.updatePatientByClerkId, {
+        clerkId: id,
+        email: email ?? "",
+        fullName: name || (email ?? "Unknown"),
+      });
     }
 
     if (eventType === "user.deleted") {
       const { id } = evt.data;
+      // Try both tables — only one will match, the other is a no-op
       await ctx.runMutation(internal.users.deleteUser, { clerkId: id });
+      await ctx.runMutation(internal.patients.unlinkPatientClerkId, { clerkId: id });
     }
 
     return new Response("Webhook processed successfully", { status: 200 });

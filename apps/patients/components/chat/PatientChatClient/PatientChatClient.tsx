@@ -1,23 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { MessageCircle } from "lucide-react";
-import { MessageBubble, MessageInput, getInitials } from "@repo/ui/chat";
-import { usePatientMessages } from "./usePatientMessages";
-import { useMutation } from "convex/react";
-import { api } from "@repo/database/convex/_generated/api";
-import type { Id } from "@repo/database/convex/_generated/dataModel";
+import { MessageBubble, MessageInput } from "@repo/ui/chat";
+import { usePatientChatClient } from "./usePatientChatClient";
+import { PatientChatClientProps } from "./PatientChatClient.types";
 
-export function PatientChatClient({ 
-  dict, 
-  lang, 
-  patientId 
-}: { 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dict: { chat: any }; 
-  lang: string; 
-  patientId: string;
-}) {
+export function PatientChatClient(props: PatientChatClientProps) {
+  const { dict, lang } = props;
   const {
     messages,
     isLoading,
@@ -29,38 +18,14 @@ export function PatientChatClient({
     setError,
     sendMessage,
     scrollRef,
-    conversation,
-  } = usePatientMessages(patientId as Id<"patients">);
-
-  const respondToReminder = useMutation(api.chat.patientRespondToReminder);
-  const [respondingMessageId, setRespondingMessageId] = useState<string | null>(null);
-
-  const handleRespondToReminder = async (messageId: string, actionId: string) => {
-    try {
-      setRespondingMessageId(messageId);
-      await respondToReminder({
-        messageId: messageId as Id<"messages">,
-        patientId: patientId as Id<"patients">,
-        actionId,
-      });
-    } catch (err) {
-      console.error("Failed to respond to reminder:", err);
-      const msg = (err as Error).message || "";
-      if (msg.includes("ALREADY_RESPONDED")) {
-        // Silently ignore — the UI will update via subscription
-      } else {
-        setError("FAILED_TO_SEND");
-      }
-    } finally {
-      setRespondingMessageId(null);
-    }
-  };
-
-  const doctorName = conversation?.doctorName ?? dict.chat?.doctor ?? "Doctor";
-  const initials = getInitials(doctorName);
+    handleRespondToReminder,
+    respondingMessageId,
+    doctorName,
+    initials,
+  } = usePatientChatClient(props);
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 bg-base-100 max-w-4xl mx-auto w-full lg:border-x border-base-200">
+    <div className="flex flex-col flex-1 min-h-0 bg-base-100">
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3 border-b border-base-200 bg-base-100/50 backdrop-blur-md sticky top-0 z-10">
         <div className="shrink-0">
