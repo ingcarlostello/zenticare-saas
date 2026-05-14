@@ -30,14 +30,25 @@ export default defineSchema({
     fullName: v.string(),
     age: v.optional(v.number()),
     email: v.string(),
-    phone: v.string(),
+    phone: v.optional(v.string()),
     address: v.optional(v.string()),
     lastAppointmentDate: v.optional(v.string()),
-    doctorClerkId: v.string(),
+    doctorClerkId: v.optional(v.string()),
     appointmentDescription: v.optional(v.string()),
+    // ── Patient Portal fields ─────────────────────────────────────────
+    clerkId: v.optional(v.string()),              // Links to Clerk user identity
+    dateOfBirth: v.optional(v.string()),           // "YYYY-MM-DD"
+    bloodType: v.optional(v.string()),             // "O+", "A-", etc.
+    allergies: v.optional(v.array(v.string())),     // ["Penicilina", "Aspirina"]
+    insuranceProvider: v.optional(v.string()),      // "GNP Seguros"
+    insurancePolicyNumber: v.optional(v.string()),  // "POL-2024-78542"
+    emergencyContactName: v.optional(v.string()),
+    emergencyContactPhone: v.optional(v.string()),
+    emergencyContactRelationship: v.optional(v.string()),
   })
     .index("by_doctorClerkId", ["doctorClerkId"])
-    .index("by_email_and_doctorClerkId", ["email", "doctorClerkId"]),
+    .index("by_email_and_doctorClerkId", ["email", "doctorClerkId"])
+    .index("by_clerkId", ["clerkId"]),
 
   // status: "scheduled" | "confirmed" | "cancelled" | "reschedule_requested"
   appointments: defineTable({

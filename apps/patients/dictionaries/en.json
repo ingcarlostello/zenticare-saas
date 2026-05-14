@@ -20,6 +20,59 @@
       "scheduled_reminders": "Automatic Reminders"
     }
   },
+  "sidebar": {
+    "home": "Home",
+    "appointments": "Appointments",
+    "chat": "Chat",
+    "profile": "Profile"
+  },
+  "home": {
+    "greeting": "Hello, {name} 👋",
+    "subtitle": "Your health, up to date, all in one place.",
+    "quickAppointments": "My Appointments",
+    "quickChat": "Chat",
+    "upcomingTitle": "Upcoming Appointments",
+    "viewAll": "View all →",
+    "noUpcoming": "No upcoming appointments"
+  },
+  "appointments": {
+    "title": "My Appointments",
+    "subtitle": "Manage your medical appointments",
+    "newAppointment": "New Appointment",
+    "upcoming": "Upcoming",
+    "history": "History",
+    "statusConfirmed": "Confirmed",
+    "statusScheduled": "Scheduled",
+    "statusCancelled": "Cancelled",
+    "statusRescheduleRequested": "Reschedule Requested",
+    "videoCall": "Video call",
+    "noAppointments": "No appointments to show"
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your personal information",
+    "personalInfo": "Personal Information",
+    "fullName": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "dateOfBirth": "Date of birth",
+    "address": "Address",
+    "medicalInfo": "Medical Information",
+    "bloodType": "Blood type",
+    "allergies": "Allergies",
+    "addAllergy": "Add allergy...",
+    "insurance": "Medical Insurance",
+    "insuranceProvider": "Insurance provider",
+    "policyNumber": "Policy number",
+    "emergencyContact": "Emergency Contact",
+    "contactName": "Name",
+    "contactPhone": "Phone",
+    "contactRelationship": "Relationship",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Changes saved successfully",
+    "notFound": "Profile not found. Please contact your doctor."
+  },
   "chat": {
     "title": "Chat",
     "searchPlaceholder": "Search conversations...",

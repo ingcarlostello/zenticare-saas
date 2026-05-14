@@ -42,6 +42,11 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     // The new URL is now /en/dashboard
     return NextResponse.redirect(req.nextUrl);
   }
+
+  // Protect dashboard routes — require authentication
+  if (pathname.match(/^\/[a-z]{2}\/dashboard/)) {
+    await auth.protect();
+  }
   
   return NextResponse.next();
 });
