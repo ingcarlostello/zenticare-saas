@@ -105,5 +105,19 @@
     "appointmentConfirmed": "Rendez-vous confirmé ✅",
     "rescheduleRequested": "Reprogrammation demandée 📅",
     "appointmentCancelled": "Rendez-vous annulé"
+  },
+  "pwa": {
+    "installTitle": "Installer Zenticare",
+    "installDescription": "Accès rapide depuis votre écran d'accueil",
+    "installButton": "Installer",
+    "featureAccess": "Accès instantané sans ouvrir le navigateur",
+    "featureNoStore": "Aucun téléchargement depuis l'App Store requis",
+    "iosSubtitle": "Suivez ces étapes pour installer Zenticare sur votre iPhone :",
+    "iosStep1": "Appuyez sur le bouton Partager",
+    "iosStep2": "Sélectionnez 'Sur l'écran d'accueil'",
+    "iosStep3": "Appuyez sur 'Ajouter' pour confirmer",
+    "dismiss": "Pas maintenant",
+    "understood": "Compris",
+    "installed": "Application installée !"
   }
 }

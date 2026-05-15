@@ -105,5 +105,19 @@
     "appointmentConfirmed": "Appointment confirmed ✅",
     "rescheduleRequested": "Reschedule requested 📅",
     "appointmentCancelled": "Appointment cancelled"
+  },
+  "pwa": {
+    "installTitle": "Install Zenticare",
+    "installDescription": "Quick access from your home screen",
+    "installButton": "Install",
+    "featureAccess": "Instant access without opening a browser",
+    "featureNoStore": "No app store download required",
+    "iosSubtitle": "Follow these steps to install Zenticare on your iPhone:",
+    "iosStep1": "Tap the Share button",
+    "iosStep2": "Select 'Add to Home Screen'",
+    "iosStep3": "Tap 'Add' to confirm",
+    "dismiss": "Not now",
+    "understood": "Got it",
+    "installed": "App installed!"
   }
 }
