@@ -279,12 +279,12 @@ export const patientGetConversation = query({
   args: { patientId: v.id("patients") },
   handler: async (ctx, args) => {
     const patient = await ctx.db.get(args.patientId);
-    if (!patient) return null;
+    if (!patient || !patient.doctorClerkId) return null;
 
     const conversation = await ctx.db
       .query("conversations")
       .withIndex("by_doctor_and_patient", (q) =>
-        q.eq("doctorClerkId", patient.doctorClerkId).eq("patientId", args.patientId)
+        q.eq("doctorClerkId", patient.doctorClerkId as string).eq("patientId", args.patientId)
       )
       .unique();
 
@@ -292,7 +292,7 @@ export const patientGetConversation = query({
 
     const doctor = await ctx.db
       .query("users")
-      .withIndex("by_clerkId", (q) => q.eq("clerkId", patient.doctorClerkId))
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", patient.doctorClerkId as string))
       .unique();
 
     return {
@@ -307,9 +307,9 @@ export const patientGetOrCreateConversation = mutation({
   args: { patientId: v.id("patients") },
   handler: async (ctx, args) => {
     const patient = await ctx.db.get(args.patientId);
-    if (!patient) throw new Error("Patient not found");
+    if (!patient || !patient.doctorClerkId) throw new Error("Patient or doctor not found");
 
-    const doctorClerkId = patient.doctorClerkId;
+    const doctorClerkId = patient.doctorClerkId as string;
 
     const existing = await ctx.db
       .query("conversations")
@@ -471,12 +471,12 @@ export const patientGenerateUploadUrl = mutation({
   args: { patientId: v.id("patients") },
   handler: async (ctx, args) => {
     const patient = await ctx.db.get(args.patientId);
-    if (!patient) throw new Error("Patient not found");
+    if (!patient || !patient.doctorClerkId) throw new Error("Patient or doctor not found");
 
     // Feature guard: check doctor's plan
     const user = await ctx.db
       .query("users")
-      .withIndex("by_clerkId", (q) => q.eq("clerkId", patient.doctorClerkId))
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", patient.doctorClerkId as string))
       .unique();
 
     if (!user) throw new Error("Doctor not found");
